@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="salir()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+		<ion-title class="new-padding-title"><strong>Tour Demo</strong></ion-title>
+  </ion-navbar>
+  
+  <ion-grid style="height:33%">
+  <ion-row style='height: 50%'>
+    <ion-col  col-1>
+      <img  src="./assets/tour/esp.png" (click)="lenguaje(0)">
+    </ion-col>
+    <ion-col  col-1>
+      <img  src="./assets/tour/eng.png" (click)="lenguaje(1)">
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let slide of slider">
+      <div class="tour">
+
+          <div class="tour titulo">
+              <p align="center">{{ slide.titulo }}</p>
+          </div>
+          <div class="tour imagen">
+            <img [src]="slide.img"/>
+          </div>
+          <div class="tour footer">
+            {{ slide.descripcion }}
+          </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

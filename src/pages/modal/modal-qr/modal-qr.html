@@ -1,0 +1,27 @@
+<ion-header>
+	<ion-navbar>
+		<ion-buttons end>
+			<button ion-button margin-right clear icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title>QR CODE</ion-title>
+	</ion-navbar>
+
+	<div text-center padding class="alert alert-success">
+		<span no-margin stacked> {{ titulo }} </span>
+	</div>
+</ion-header>
+
+<ion-content padding>
+	<p margin text-center class="label-text-color">{{ subtitulo }}</p>
+
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12 text-center>
+				<qr-code value="{{fastcheckin}}" [size]="250"></qr-code>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

@@ -1,0 +1,19 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title class="new-padding-title">{{'HELP.TITLE' | translate}}</ion-title>
+		<ion-buttons end>
+			<button ion-button margin-right icon-only (click)="closeModal()">
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<p text-justify class="small">{{'HELP.TEXT_1' | translate}}</p>
+	<p text-justify class="small">{{'HELP.TEXT_2' | translate}}</p>
+	<p text-justify class="small">{{'HELP.TEXT_3' | translate}}</p>
+	<img src="assets/imgs/dni.png">
+	<p text-justify class="small">{{'HELP.TEXT_4' | translate}}</p>
+	<img src="assets/imgs/pasaporte.png">
+</ion-content>

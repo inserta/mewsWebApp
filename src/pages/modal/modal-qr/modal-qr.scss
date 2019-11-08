@@ -1,0 +1,11 @@
+page-modalqr {
+    ion-grid {
+		justify-content: center;
+
+        .qr-identitie {
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}

@@ -1,0 +1,538 @@
+page-mimap {
+  #map{
+    width: 100%;
+    height: 100%;
+  }
+
+  .place_info{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 0px;
+    background: rgba(47, 100, 167, 0.9);
+    //background-color: #000066;
+    color: white;
+    overflow: scroll;
+
+    //transition: height 0.3s;
+    &.active{
+      // transition: top 0.5s;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .close_info{
+      position: absolute;
+      right: 20px;
+      top: 20px;
+
+      font-size: 40px;
+      font-weight: 100;
+      line-height: 0.6;
+
+      z-index: 1;
+    }
+
+    .info_content{
+      position: absolute;
+      top: 30px;
+      left: 20px;
+      right: 20px;
+
+      .title{
+        margin-bottom: 10px;
+        font-size: 23px;
+        color: white;
+      }
+      .desc{
+        margin-bottom: 10px;
+      }
+      .recomendacion{
+        margin-bottom: 10px;
+      }
+      .image{
+        width: 100%;
+        height: 150px;
+        display: flex;
+
+        img{
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  .place_info2{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 0px;
+    background: rgba(00, 00, 102, 0.1);
+    //background-color: #000066;
+    color: white;
+    overflow: scroll;
+
+    //transition: height 0.3s;
+    &.active{
+      // transition: top 0.5s;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .close_info{
+      position: absolute;
+      right: 20px;
+      top: 20px;
+
+      font-size: 40px;
+      font-weight: 100;
+      line-height: 0.6;
+
+      z-index: 1;
+    }
+
+    .info_content{
+      position: absolute;
+      top: 30px;
+      left: 20px;
+      right: 20px;
+
+      .title{
+        margin-bottom: 10px;
+        font-size: 23px;
+      }
+      .desc{
+        margin-bottom: 10px;
+      }
+      .recomendacion{
+        margin-bottom: 10px;
+      }
+      .image{
+        width: 100%;
+        height: 150px;
+        display: flex;
+
+        img{
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  .openInApp{
+
+  }
+  .box {
+    //position: absolute;
+
+    background-color: #000066;
+    color:white;
+    height: 20%;
+
+  }
+
+  .boxwhite {
+  //position: absolute;
+
+  background-color: white;
+  border-radius: 12px;
+  margin: 5px;
+
+  }
+
+  .userpos {
+    right: 10px;
+  }
+
+  .mitem {
+    color:white;
+    font-size: 12px;
+    // background-color: rgba(255,255,255, 0.9)
+    font-family: 'fontbecheckin';
+
+  }
+  .mitem_titulo {
+    color: white;
+    font-size: 16px;
+    text-decoration:underline;
+    display: inline-block;
+    white-space: normal !important;
+    // background-color: rgba(255,255,255, 0.9)
+    font-family: 'fontbecheckin';
+    overflow: hidden;
+    width: 95%;
+  }
+
+  
+  .puntos {
+    font-family: "fontbecheckin";
+    font-size: 16px; 
+    margin-bottom: 5px; 
+    height: 20px;
+    text-align: left;
+    color: #f4f4f4;
+    bottom: 0px;
+    border-radius: 12px;
+    width:90%;
+    height:50px;
+    padding-left: 5px;
+    width:49%;
+    background-color: rgba(0, 53, 128, 0.884)
+
+  }
+
+  .puntosblack {
+    font-family: "fontbecheckin";
+    font-size: 16px; 
+    margin-bottom: 5px; 
+    height: 20px;
+    text-align: left;
+    color: #000000;
+    bottom: 0px;
+    border-radius: 12px;
+    width:90%;
+    height:50px;
+    padding-left: 5px;
+  }
+
+  ion-slides {
+   // margin-top: 75px;
+    background: rgba(255,255,255, 0.9)
+ 
+    img {
+       // padding-top: 20px;
+       // padding-bottom: 20px;
+    }
+}
+
+.list-ios .item-block .item-inner {
+  border-bottom: none;
+}
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+  border-bottom: none;
+}
+.item-radio-checked.item-ios ion-label {
+ // color: black;
+ color: rgb(0,53,128);
+
+
+}
+.item-ios {
+  padding-left: 16px;
+  padding-left: 16px;
+  border-radius: 0;
+  position: relative;
+  font-size: 1.7rem;
+  color:#b7a3a3;
+  background-color: transparent;
+  -webkit-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+}
+.list-ios > .item-block {
+  border-top: none;
+  background: transparent;
+}
+.radio.item-radio > input[type=radio]:checked ~ .radio-icon:after {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.radio .item-content {
+  background-color: #fff;
+  margin: 0;
+  padding-right: 50px;
+  padding-left: 0px;
+}
+
+.radio.item-radio > input[type=radio]:checked ~ .item-content {
+  background-color: #fff;
+}
+
+.radio-inline.item {
+  display: inline-block;
+  border: none;
+  margin: 0;
+  height: 50px;
+}
+
+.item-ios.item-block .item-inner {
+  padding-right: 0;
+  padding-right: 0;
+  border-bottom: none;
+}
+
+.text-introduction {
+  color: white;
+  font-size: 14px;
+  text-align: left  !important;
+  font-family: "fontbecheckin";
+  white-space: normal;
+}
+
+ion-list 
+{
+    overflow-y: scroll !important;
+}
+
+.no-scroll .scroll-content{
+  overflow: hidden;
+}
+
+.scroll-content {
+  padding-bottom: 0px;
+}
+
+.scrolllistado {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-top:10px;
+}
+.text-radio {
+  color: black;
+  font-size: 14px;
+  text-align: justify  !important;
+  font-family: "fontbecheckin";
+}
+.radio .radio-icon:after {
+  content: "" !important;
+  position: absolute !important;
+  right: 20px !important;
+  top: 22px !important;
+  background: black !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  transition: -webkit-transform .28s cubic-bezier(0.420, 0.000, 0.000, 1.650);
+  transition: transform .28s cubic-bezier(0.420, 0.000, 0.000, 1.650);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.radio.item-radio > input[type=radio]:checked ~ .radio-icon:after {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.radio .item-content {
+  background-color: #fff;
+  margin: 0;
+  padding-right: 50px;
+  padding-left: 0px;
+}
+
+.radio.item-radio > input[type=radio]:checked ~ .item-content {
+  background-color: #fff;
+}
+
+.radio-inline.item {
+  display: inline-block;
+  border: none;
+  margin: 0;
+  height: 50px;
+}
+
+.item-ios.item-block .item-inner {
+  padding-right: 0;
+  padding-right: 0;
+  border-bottom: none;
+}
+.radio-md .radio-checked {
+  border-color: #ffffff;
+}
+
+.col {
+  padding: 0px !important;
+}
+.radio-md .radio-inner {
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(0,53,128,0.8);
+  -webkit-transform: scale3d(0, 0, 0);
+  transform: scale3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: -webkit-transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+ion-scroll[scrollX] {
+  white-space: nowrap;
+  .scroll-item {
+  display: inline-block;
+  }}
+
+  .scroll-content {
+    overflow-y: hidden;
+}
+
+.cabecera {
+  background: none rgb(255, 255, 255);
+    border: 0px;
+    margin: 10px;
+    padding: 0px;
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 2px;
+    height: 40px;
+    width: 40px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    overflow: hidden;
+    top: 0px;
+    right: 0px;
+}
+
+.center-banner {
+  background-color: rgba(20, 56, 65, 0.7);
+  font-size: 16px;
+  text-align: left;
+  font-family: "fontbecheckin";
+  height: auto;
+  position: absolute;
+  left: 60px;
+  margin-left: -50px;
+  color:rgb(252, 252, 252);
+  bottom: 25%;
+  white-space:normal;
+  
+}
+
+.center-banner-imagen {
+ 
+  height: 250px;
+  width: 350px;
+  display:block;
+  margin:auto;
+
+}
+
+
+.center-banner-activitie {
+  background-color: rgba(0,53,128, 0.8);
+  font-size: 16px;
+  text-align: center;
+  font-family: "fontbecheckin";
+  display:block;
+  margin:auto;
+  width:250px;
+  color:rgb(252, 252, 252);
+  white-space:normal;
+  border-width: 4px 0 1px 0;
+  border-color:rgb(110, 108, 161);
+  border-radius:35px 35px 0px 0px;
+  border-style: solid;  
+}
+
+.center-banner-imagen-activitie {
+ 
+  height: 150px;
+  width: 250px;
+  display:block;
+  margin:auto;
+  border: 2px solid black;
+  border-radius:0px 0px 12px 12px;
+}
+
+.itemshome{
+  color: black;
+  border: 2px solid black;
+  border-radius:12px;
+  width: 90%;
+  padding-left:5px;
+}
+
+.iconsocial{
+  width: 43px;
+  height: 36px;
+}
+
+.close-icon-black {
+  display:block;
+  box-sizing:border-box;
+  width:30px;
+  height:30px;
+  border-radius:100%;
+  background: -webkit-linear-gradient(-45deg, #2d282800 0%, #4e474700 46%, #504d4d 46%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, #443d3d00 46%, #3e3939 46%, white 56%, transparent 56%, transparent 100%);
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+}
+
+.close-icon
+{
+  display:block;
+  box-sizing:border-box;
+  width:30px;
+  height:30px;
+  border-radius:100%;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+}
+
+.pie-top {
+    
+    text-align: center;
+    
+    vertical-align: middle;
+   
+    color: rgb(13, 49, 59);;
+    font-family: "fontbecheckin";
+    user-select: none;
+    font-size: 16px;
+    }
+
+    content-drawer {
+      background-color: white !important;
+      padding-top: 10px !important;
+  }
+
+  content-drawer .content {
+      padding: 5px;
+  }
+
+  .foo{
+    height: 35% !important;
+    background-color:white;
+    }
+
+    div.gm-style-iw {
+      overflow:scroll;
+  }
+
+  .gm-style .gm-style-iw {
+    font-weight: 300;
+    font-size: 14px;
+    font-family: "fontbecheckin";
+    overflow: hidden;
+}
+
+.swiper-slide img {
+  width: 100%;
+  /* max-width: 100%; */
+  height: auto;
+  /* max-height: 100%; */
+}
+
+/*style the box*/  
+.gm-style .gm-style-iw {
+  background-color: white;
+  color: rgb(0,53,128);;
+}   
+
+}

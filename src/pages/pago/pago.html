@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-grid class="box">
+
+    <ion-row>
+        <ion-col col-5><b>{{  'PAGO.TITULO' | translate }}</b></ion-col>
+        <ion-col col-2></ion-col>
+        <ion-col class="boxwhite" col-4></ion-col>
+    </ion-row>
+
+  </ion-grid>
+	<ion-navbar hideBackButton>
+		<button ion-button icon-only class="mbutton1" (click)="goInit()">
+			<ion-icon name="home"></ion-icon>
+		</button>
+		<!--<ion-title class="new-padding-title">{{  'PAGO.TITULO' | translate }}</ion-title>
+-->
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+<ion-list>
+  <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">
+     <ion-input  class="myInput" text-center  type="text" [(ngModel)]="cardData.numero" placeholder="{{  'PAGO.CARD' | translate }}"></ion-input>
+  </ion-item>
+  <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">{{  'PAGO.EXP_MONTH' | translate }}</ion-item>
+  <ion-item no-lines align="center">
+
+  <ion-select  padding-right class="mySelect" [(ngModel)]="cardData.mes" cancelText="Cancel" okText="Ok">
+    <ion-option value="1">    01    </ion-option>
+    <ion-option value="2">    02    </ion-option>
+    <ion-option value="3">    03    </ion-option>
+    <ion-option value="4">    04    </ion-option>
+    <ion-option value="5">    05    </ion-option>
+    <ion-option value="6">    06    </ion-option>
+    <ion-option value="7">    07    </ion-option>
+    <ion-option value="8">    08    </ion-option>
+    <ion-option value="9">    09    </ion-option>
+    <ion-option value="10">    10    </ion-option>
+    <ion-option value="11">    11    </ion-option>
+    <ion-option value="12">    12    </ion-option>
+  </ion-select>
+  </ion-item>
+    <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">{{  'PAGO.EXP_YEAR' | translate }}</ion-item>
+  <ion-item no-lines  align="center">
+  <ion-select pading-right  class="mySelect"  [(ngModel)]="cardData.anio" cancelText="Cancel" okText="Ok">
+    <ion-option value="2019">   2019   </ion-option>
+    <ion-option value="2020">   2020   </ion-option>
+    <ion-option value="2021">   2021   </ion-option>
+    <ion-option value="2022">   2022   </ion-option>
+    <ion-option value="2023">   2023   </ion-option>
+    <ion-option value="2024">   2024   </ion-option>
+    <ion-option value="2025">   2025   </ion-option>
+    <ion-option value="2026">   2026   </ion-option>
+    <ion-option value="2027">   2027   </ion-option>
+    <ion-option value="2028">   2028   </ion-option>
+    <ion-option value="2025">   2029   </ion-option>
+    <ion-option value="2026">   2030   </ion-option>
+    <ion-option value="2027">   2031   </ion-option>
+    <ion-option value="2028">   2032   </ion-option>
+    <ion-option value="2027">   2033   </ion-option>
+    <ion-option value="2028">   2034   </ion-option>
+    <ion-option value="2025">   2035   </ion-option>
+    <ion-option value="2026">   2036   </ion-option>
+    <ion-option value="2027">   2037   </ion-option>
+    <ion-option value="2028">   2038   </ion-option>
+    <ion-option value="2027">   2039   </ion-option>
+    <ion-option value="2028">   2040   </ion-option>
+  </ion-select>
+  </ion-item>
+  <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">CVC</ion-item>
+
+  <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">
+     <ion-input text-center type="text"  class="myInput" [(ngModel)]="cardData.cvc" placeholder="CVC"></ion-input>
+  </ion-item>
+  <!--
+  <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">PIN Bepai</ion-item>
+
+  <ion-item no-lines  align="center" style="color: #45B39D; text-align: center">
+     <ion-input text-center type="text"  class="myInput" [(ngModel)]="cardData.card" placeholder="PIN"></ion-input>
+  </ion-item>
+-->
+</ion-list>
+
+</ion-content>
+<ion-footer padding>
+	<button ion-button full icon-start class="no-border button-shadow big-radius" (click)="saveCard()">
+		{{  'PAGO.SAVE' | translate }}
+	</button>
+
+</ion-footer>

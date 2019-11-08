@@ -1,0 +1,174 @@
+<ion-header>
+  <ion-grid class="box">
+
+    <ion-row>
+        <ion-col col-8><b>{{ 'FASTCHECKIN.TITLE' | translate }}</b></ion-col>
+        <ion-col col-2></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+	<ion-navbar hideBackButton>
+		<button ion-button icon-only menuToggle>
+			<ion-icon name="home"></ion-icon>
+		</button>
+		<!--<ion-title class="new-padding-title">{{ 'FASTCHECKIN.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button margin-right icon-only (click)="openHelp()">
+				<ion-icon name="help"></ion-icon>
+			</button>-->
+
+	</ion-navbar>
+
+	<div text-center padding class="alert alert-success" *ngIf="dataUpdate">
+		<span no-margin stacked>{{ 'FASTCHECKIN.CHANGED' | translate }}</span>
+	</div>
+</ion-header>
+
+<ion-content padding>
+<!-- Mostrar QR y Foto
+	<button ion-button class="button-shadow big-radius" full (click)="openQr()">{{ 'FASTCHECKIN.SHOW_FASTCHECKIN' |
+		translate }}</button>
+-->
+
+
+
+
+	<ng-container *ngIf="loginForm">
+    <button ion-button class="button-shadow big-radius" full (tap)="showhelp()">{{ 'FASTCHECKIN.HELP' | translate }}</button>
+
+    <input type="file" id= "file" name="file" class="inputfile" (change)="getFiles($event)" [(ngModel)]="this.img"  base-sixty-four-input>
+    <label for="file">{{ 'FASTCHECKIN.SCAN' | translate }}</label>
+
+		<form [formGroup]="loginForm" novalidate>
+			<ion-list>
+				<ion-item no-padding margin-top>
+          <ion-label>{{ 'FASTCHECKIN.NAME' | translate }} (*)</ion-label>
+					<ion-input formControlName="name" type="text" [class.invalid]="!loginForm.controls.name.valid && loginForm.controls.name.dirty"></ion-input>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.name.valid && loginForm.controls.name.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.name.valid"></ion-icon>
+				</ion-item>
+				<ion-item no-padding margin-top>
+          <ion-label>{{ 'FASTCHECKIN.LASTNAME' | translate }} (*)</ion-label>
+					<ion-input formControlName="lastname" type="text"
+					 [class.invalid]="!loginForm.controls.lastname.valid && loginForm.controls.lastname.dirty"></ion-input>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.lastname.valid && loginForm.controls.lastname.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.lastname.valid"></ion-icon>
+				</ion-item>
+				<ion-item no-padding margin-top>
+          <ion-label>{{ 'FASTCHECKIN.EMAIL' | translate }} </ion-label>
+					<ion-input formControlName="email" type="text"  [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.email.valid"></ion-icon>
+				</ion-item>
+				<ion-item no-padding margin-top>
+          <ion-label>{{ 'FASTCHECKIN.RESERVE' | translate }} (*)</ion-label>
+					<ion-input formControlName="reserve" type="text"
+					 [class.invalid]="!loginForm.controls.reserve.valid && loginForm.controls.reserve.dirty"></ion-input>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.reserve.valid && loginForm.controls.reserve.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.reserve.valid"></ion-icon>
+				</ion-item>
+				<ion-item no-padding margin-top>
+					<ion-label>{{ 'FASTCHECKIN.BIRTHDAY' | translate }} (*)</ion-label>
+					<ion-datetime padding-right displayFormat="DD/MM/YYYY" formControlName="birthday" cancelText="{{ 'GENERAL.CANCEL' | translate }}"
+					 doneText="{{ 'GENERAL.OK' | translate }}"></ion-datetime>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.birthday.valid && loginForm.controls.birthday.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.birthday.valid"></ion-icon>
+				</ion-item>
+				<ion-item no-padding margin-top>
+					<ion-label>{{ 'FASTCHECKIN.EXPEDITION' | translate }} (*)</ion-label>
+					<ion-datetime padding-right displayFormat="DD/MM/YYYY" max="2050" formControlName="expedition" cancelText="{{ 'GENERAL.CANCEL' | translate }}"
+					 doneText="{{ 'GENERAL.OK' | translate }}"></ion-datetime>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.expedition.valid && loginForm.controls.expedition.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.expedition.valid"></ion-icon>
+				</ion-item>
+        <!--
+				<ion-item no-padding margin-top>
+					<ion-label>{{ 'FASTCHECKIN.CADUCATE' | translate }} (*)</ion-label>
+					<ion-datetime padding-right displayFormat="DD/MM/YYYY" max="2050" formControlName="caducate" cancelText="{{ 'GENERAL.CANCEL' | translate }}"
+					 doneText="{{ 'GENERAL.OK' | translate }}"></ion-datetime>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.caducate.valid && loginForm.controls.caducate.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.caducate.valid"></ion-icon>
+				</ion-item>
+        -->
+
+			</ion-list>
+		</form>
+		<ion-item no-padding margin-top>
+			<ion-label>
+				<span>{{ 'FASTCHECKIN.DOCUMENT_TYPE' | translate }} (*)</span>
+			</ion-label>
+			<ion-select padding-right [(ngModel)]="typeDocument" cancelText="{{ 'GENERAL.CANCEL' | translate }}" okText="{{ 'GENERAL.OK' | translate }}">
+				<ion-option value="dni">{{ 'FASTCHECKIN.TYPE_DNI' | translate }}</ion-option>
+				<ion-option value="passport">{{ 'FASTCHECKIN.TYPE_PASSPORT' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<form [formGroup]="loginForm" novalidate>
+			<ion-list>
+				<ion-item no-padding margin-top>
+          <ion-label>{{ 'FASTCHECKIN.NUMBER_DOCUMENT' | translate }} (*)</ion-label>
+					<ion-input formControlName="document" type="text"
+					 [class.invalid]="!loginForm.controls.document.valid && loginForm.controls.document.dirty"></ion-input>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.document.valid && loginForm.controls.document.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.document.valid"></ion-icon>
+				</ion-item>
+				<ion-item no-padding margin-top>
+          <ion-label>{{ 'FASTCHECKIN.NATIONALITY' | translate }} (*)</ion-label>
+					<ion-input formControlName="nationality" type="text"
+					 [class.invalid]="!loginForm.controls.document.valid && loginForm.controls.document.dirty"></ion-input>
+					<ion-icon class="input-icon-right" item-right color="danger" name="close" *ngIf="!loginForm.controls.nationality.valid && loginForm.controls.nationality.dirty"></ion-icon>
+					<ion-icon class="input-icon-right" item-right color="success" name="checkmark" *ngIf="loginForm.controls.nationality.valid"></ion-icon>
+				</ion-item>
+			</ion-list>
+		</form>
+		<ion-item no-padding margin-top>
+			<ion-label>
+				<span>{{ 'FASTCHECKIN.SEX' | translate }} (*)</span>
+			</ion-label>
+			<ion-select padding-right [(ngModel)]="sex" cancelText="{{ 'GENERAL.CANCEL' | translate }}" okText="{{ 'GENERAL.OK' | translate }}">
+				<ion-option value="M">{{ 'FASTCHECKIN.MAN' | translate }}</ion-option>
+				<ion-option value="F">{{ 'FASTCHECKIN.WOMAN' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+
+		<ion-item no-padding margin-top>
+			<ion-label>
+				<span>{{ 'FASTCHECKIN.SIGNATURE' | translate }}</span>
+			</ion-label>
+		</ion-item>
+
+		<signature-field [data]="user.guest.fastcheckin.signature" (finished)="signatureData($event)"></signature-field>
+    <br>
+    <ion-row>
+    <ion-item col-2 no-lines style="text-align:'left'">
+        <ion-checkbox [(ngModel)]="conditions" color="light"></ion-checkbox>
+    </ion-item>
+    <ion-item col-7 no-lines>
+        <ion-label> {{ 'FASTCHECKIN.CADUCATE' | translate }}</ion-label>
+    </ion-item>
+    <ion-item col-3 no-lines>
+        <button ion-button block (click)="pdf()">{{ 'POLICY.SEE' | translate }}</button>
+    </ion-item>
+    </ion-row>
+
+
+    <ion-item class="mitem" no-lines>
+      <button  full icon-start class="mbutton" (click)="saveProfile()">
+        {{ 'FASTCHECKIN.CHANGE' | translate }}
+      </button>
+    </ion-item>
+    <br>
+    <ion-item  *ngIf="!first" no-lines class="mitem">
+      <button icon-start class="mbutton" (click)="sendUser()">
+        {{ 'FASTCHECKIN.ADD' | translate }}
+      </button>
+    </ion-item>
+    <br>
+    <ion-item  no-lines class="mitem">
+      <button icon-start class="mbutton" (click)="exit()">
+        {{ 'GENERAL.EXIT' | translate }}
+      </button>
+    </ion-item>
+	</ng-container>
+
+</ion-content>

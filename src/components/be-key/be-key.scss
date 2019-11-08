@@ -1,0 +1,881 @@
+be-key {
+	margin: $content-margin auto;
+	height: calc( 100vh / 3.5 );
+	display: block;
+	overflow: hidden;
+	border-radius: $button-ios-border-radius;
+	position: relative;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+	text-transform: uppercase;
+
+	&:first-child { margin-top: 0; }
+
+	ion-slides {
+		position: absolute;
+		top: 0;
+
+		ion-slide {
+			&.opacity-transition {
+				opacity: .2;
+				transition: opacity .5s linear;
+			}
+
+			.slide-zoom {
+				padding: $content-padding;
+				text-align: left;
+				height: 100%;
+			}
+		}
+
+	}
+
+	.room-name {
+		position: absolute;
+    //top:35%; 9455731 tramitacionclientes@lineadirecta.es
+    	bottom: $content-padding;
+		display: block;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+    	overflow: hidden;
+    	max-width: 25rem;
+
+		&-title {
+			display: block;
+			font-size: $font-size-small;
+			line-height: 3;
+		}
+
+		&-number {
+			font-size: 2rem;
+			line-height: .8;
+		}
+
+		&-smaller {
+			position: absolute;
+			top: $content-margin;
+			right: $content-margin;
+		}
+
+    &-smaller2 {
+			position: absolute;
+			top: $content-margin + 20px;
+			right: $content-margin;
+      font-weight: bold;
+      font-style: italic;
+      color:red;
+		}
+	}
+	.text-open-text-logo{
+		font-size: 3.1rem !important;
+	}
+
+	.text-slide {
+		font-size: $font-size-small;
+		position: absolute;
+		top: 25%;
+		left: 80%;
+    width: 20%;
+		transform: translateY(-50%);
+		height: 100%;
+		transition: all 500ms;
+		&-text {
+			display: inline-block;
+			position: relative;
+    		top: calc(50% - 1.6rem);
+    		transform: translateY(-50%);
+		}
+		.text-slide-arrows {
+			display: inline-block;
+			height: inherit;
+			background-color: rgba(color($colors, dark), .25);
+
+			.animated {
+				position: relative;
+    			top: 50%;
+    			transform: translateY(-50%);
+
+				&.animated-3 {
+					animation-delay: .25s;
+				}
+
+				&.animated-2 {
+					animation-delay: .5s;
+				}
+
+				&.animated-1 {
+					animation-delay: .75s;
+				}
+
+			}
+
+			.animated-second {
+				&.animated-2 {
+					animation-delay: .25s;
+				}
+
+				&.animated-3 {
+					animation-delay: .5s;
+				}
+
+				&.animated-4 {
+					animation-delay: .75s;
+				}
+			}
+		}
+    .text-slide-arrows3 {
+      display: inline-block;
+      height: inherit;
+      background-color: rgba(color($colors, dark), .25);
+
+      .animated {
+        position: relative;
+          top: 25%;
+          transform: translateY(-50%);
+
+        &.animated-3 {
+          animation-delay: .25s;
+        }
+
+        &.animated-2 {
+          animation-delay: .5s;
+        }
+
+        &.animated-1 {
+          animation-delay: .75s;
+        }
+
+      }
+
+      .animated-second {
+        &.animated-2 {
+          animation-delay: .25s;
+        }
+
+        &.animated-3 {
+          animation-delay: .5s;
+        }
+
+        &.animated-4 {
+          animation-delay: .75s;
+        }
+      }
+    }
+    .text-slide-arrows3 {
+      display: inline-block;
+      height: inherit;
+      background-color: rgba(color($colors, dark), .25);
+
+      .animated {
+        position: relative;
+          top: 75%;
+          transform: translateY(-50%);
+
+        &.animated-3 {
+          animation-delay: .25s;
+        }
+
+        &.animated-2 {
+          animation-delay: .5s;
+        }
+
+        &.animated-1 {
+          animation-delay: .75s;
+        }
+
+      }
+
+      .animated-second {
+        &.animated-2 {
+          animation-delay: .25s;
+        }
+
+        &.animated-3 {
+          animation-delay: .5s;
+        }
+
+        &.animated-4 {
+          animation-delay: .75s;
+        }
+      }
+    }
+
+		&-error {
+			width: 100%;
+
+			.text-slide-text {
+				position: absolute;
+				left: 50%;
+				text-align: center;
+				display: block;
+				width: 50%;
+				transform: translateX(-50%);
+				line-height: 1.5;
+			}
+
+			.text-slide-arrows {
+				background: transparent;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+
+			.text-slide-button {
+				position: absolute;
+				left: 50%;
+				text-align: center;
+				display: block;
+				width: 50%;
+				transform: translateX(-50%);
+				bottom: $content-margin;
+			}
+		}
+	}
+  .text-slide2 {
+    font-size: $font-size-small;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 20%;
+    transform: translateY(-50%);
+    height: 100%;
+    transition: all 500ms;
+    &-text {
+      display: inline-block;
+      position: relative;
+        top: calc(50% - 1.6rem);
+        transform: translateY(-50%);
+    }
+    .text-slide-arrows {
+      display: inline-block;
+      height: inherit;
+      background-color: rgba(color($colors, dark), .25);
+
+      .animated {
+        position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+
+        &.animated-3 {
+          animation-delay: .25s;
+        }
+
+        &.animated-2 {
+          animation-delay: .5s;
+        }
+
+        &.animated-1 {
+          animation-delay: .75s;
+        }
+
+      }
+
+      .animated-second {
+        &.animated-2 {
+          animation-delay: .25s;
+        }
+
+        &.animated-3 {
+          animation-delay: .5s;
+        }
+
+        &.animated-4 {
+          animation-delay: .75s;
+        }
+      }
+    }
+
+    &-error {
+      width: 100%;
+
+      .text-slide-text {
+        position: absolute;
+        left: 50%;
+        text-align: center;
+        display: block;
+        width: 50%;
+        transform: translateX(-50%);
+        line-height: 1.5;
+      }
+
+      .text-slide-arrows {
+        background: transparent;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .text-slide-button {
+        position: absolute;
+        left: 50%;
+        text-align: center;
+        display: block;
+        width: 50%;
+        transform: translateX(-50%);
+        bottom: $content-margin;
+      }
+    }
+  }
+  .text-slide3 {
+    font-size: $font-size-small;
+    position: absolute;
+    top: 75%;
+    right: 0;
+    width: 20%;
+    transform: translateY(-50%);
+    height: 100%;
+    transition: all 500ms;
+    &-text {
+      display: inline-block;
+      position: relative;
+        top: calc(50% - 1.6rem);
+        transform: translateY(-50%);
+    }
+    .text-slide-arrows {
+      display: inline-block;
+      height: inherit;
+      background-color: rgba(color($colors, dark), .25);
+
+      .animated {
+        position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+
+        &.animated-3 {
+          animation-delay: .25s;
+        }
+
+        &.animated-2 {
+          animation-delay: .5s;
+        }
+
+        &.animated-1 {
+          animation-delay: .75s;
+        }
+
+      }
+
+      .animated-second {
+        &.animated-2 {
+          animation-delay: .25s;
+        }
+
+        &.animated-3 {
+          animation-delay: .5s;
+        }
+
+        &.animated-4 {
+          animation-delay: .75s;
+        }
+      }
+    }
+
+    &-error {
+      width: 100%;
+
+      .text-slide-text {
+        position: absolute;
+        left: 50%;
+        text-align: center;
+        display: block;
+        width: 50%;
+        transform: translateX(-50%);
+        line-height: 1.5;
+      }
+
+      .text-slide-arrows {
+        background: transparent;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .text-slide-button {
+        position: absolute;
+        left: 50%;
+        text-align: center;
+        display: block;
+        width: 50%;
+        transform: translateX(-50%);
+        bottom: $content-margin;
+      }
+    }
+  }
+	.text-open {
+		@extend .text-slide;
+    z-index: 6;
+
+		&-text {
+			height: inherit;
+			display: inline-block;
+			position: relative;
+			top: 50%;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+
+			&-logo {
+				height: 50%;
+				color: inherit;
+				border-radius: 0;
+				min-width: calc(34px + 20px);
+
+				&.one-button {
+					height: 100%;
+				}
+
+				&:not(.one-button):not(:last-child) {
+					border-bottom: .1rem solid color($colors, blank);
+				}
+
+				ion-icon {
+					font-size: 4rem;
+				}
+			}
+		}
+	}
+
+	.text-error {
+		font-size: 3.5vw ;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+    z-index: 6;
+		background-color: color($colors, danger);
+	}
+  .text-servicio {
+    font-size: 3.5vw ;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    color: black;
+    background-color: lightgray;
+  }
+
+  .text-error2 {
+		font-size: 3.5vw ;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+    z-index: 6;
+		background-color: color($colors, blank);
+	}
+
+	.text-old {
+		position: absolute;
+		bottom: $content-margin;
+		right: $content-margin;
+		line-height: 1.5;
+		font-size: $font-size-small;
+		text-align: right;
+
+		span {
+			display: block;
+		}
+	}
+
+	// Colors
+	.colors {
+		background-image: linear-gradient(225.31deg, rgba(255,255,255,.7) 0%, transparent 100%);
+		//background-blend-mode: hard-light;
+
+		//Tarjeta default
+		&.isLight {
+			height: 100%;
+			color: rgba(color($colors, dark), .3);
+
+			.text-slide-text, .error-info {
+				color: rgba(color($colors, dark), .8);
+			}
+
+			.text-error { background-color: lightgray; z-index: 6; }
+
+			.text-open button, .text-slide:not(.text-slide-error) .text-slide-arrows {
+				background-color: rgba(color($colors, dark), .10);
+			}
+
+			.text-open button.is-active {
+				background-color:rgba(color($colors, dark), .10);
+    			color: rgba(0, 0, 0, 0.4);
+			}
+
+			.animated {
+				animation: move-in-steps-light 1s steps(4, start) infinite;
+			}
+		}
+
+		&.isDark {
+			height: 100%;
+			color: color($colors, blank);
+
+			.room-name {
+				color: rgba(color($colors, blank), .5);
+			}
+
+			.text-open button, .text-slide:not(.text-slide-error) .text-slide-arrows {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+
+			.text-open button.is-active {
+				background-color: rgba(color($colors, blank), .5);
+				color: rgba(color($colors, dark), .5);
+			}
+
+			.animated {
+				animation: move-in-steps-dark 1s steps(4, start) infinite;
+			}
+		}
+	}
+
+	@keyframes move-in-steps-dark {
+		0% {
+			color: $primary-text-color;
+		}
+		50% {
+			color: color($colors, blank);
+		}
+		100% {
+			color: $primary-text-color;
+		}
+	}
+
+	@keyframes move-in-steps-light {
+		0% {
+			color: $primary-text-color;
+		}
+		50% {
+			color: rgba(color($colors, dark), .8);
+		}
+		100% {
+			color: $primary-text-color;
+		}
+	}
+
+	.image-logo{
+		width: 20%;
+	}
+  .textoslide {
+    position: absolute;
+    bottom: 1%;
+    right: 3%;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .image-qr{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: 20%;
+    height: 20%;
+    padding: 2px;
+    z-index: 2;
+  }
+
+  .image-maps{
+    position: absolute;
+    top: 10%;
+    width: 15%;
+    left: 45%;
+    z-index: 4;
+  }
+  .image-user{
+    position: absolute;
+    top: 10%;
+    width: 15%;
+    left: 66%;
+    z-index: 4;
+  }
+
+  .boton-on{
+    position: absolute;
+    top: 1%;
+    width: 15%;
+    height: 50%;
+    right: 2%;
+    z-index: 4;
+  }
+
+  .image-on {
+    top:40%;
+    right: 20%;
+    height: 60%;
+    width: 80%;
+  }
+
+  .boton-off{
+    position: absolute;
+    top: 50%;
+    width: 15%;
+    right: 2%;
+    height: 50%;
+    float: right;
+    z-index: 4;
+    background-color: gray;
+  }
+
+  .image-log {
+    position: absolute;
+    top: 5%;
+    width: 20%;
+    height: 25%;
+    left: 5%;
+  }
+
+  .image-log-fijo {
+    position: absolute;
+    top: 40%;
+    width: 15%;
+    left: 5%;
+  }
+  .div-qr {
+    position: absolute;
+    top: 10%;
+    width: 20%;
+    left: 50%;
+  }
+
+  .box {
+    //position: absolute;
+
+    background-color: #000066;
+    color:white;
+    height: 20%;
+
+  }
+
+  .boxwhite {
+  //position: absolute;
+
+  background-color: white;
+  border-radius: 12px;
+  margin: 5px;
+
+  }
+
+  .bombilla1 {
+    left: 80%;
+    top: 0;
+    width: 20%;
+    height: 49%;
+  }
+  .bombilla2 {
+    left: 80%;
+    top: 51%;
+    width: 20%;
+    height: 49%;
+  }
+
+  .mh5 {
+    position: absolute;
+    text-align: center;
+    font-size: 10px;
+    padding: 3px;
+    top:10px;
+    right:1%;
+    border: 1px solid gray;
+    border-radius: 20px;
+  }
+  .backTravel {
+    position: absolute;
+    padding: 3px;
+    top:5px;
+    left:1%;
+    width: 15%;
+    height: 25%;
+    background-color: white;
+  }
+
+  .icontravel {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    height: 20%;
+    width: 20%;
+    zoom:2.0;
+  }
+
+
+  .p1 {
+    position: absolute;
+    left:5%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p2 {
+    position: absolute;
+    left:30%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p3 {
+    position: absolute;
+    left:55%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p4 {
+    position: absolute;
+    left:80%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p5 {
+    position: absolute;
+    top:50%;
+    left:5%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p6 {
+    position: absolute;
+    top:50%;
+    left:30%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p7 {
+    position: absolute;
+    top:50%;
+    left:55%;
+    width: 20%;
+    z-index: 6;
+
+
+  }
+
+
+  .p8 {
+    position: absolute;
+    top:50%;
+    left:80%;
+    width: 20%;
+    z-index: 6;
+  }
+  .p10 {
+    position: absolute;
+    top:0%;
+    right:20%;
+    width: 20%;
+    height: 20%;
+    z-index: 6;
+  }
+  .p11 {
+    position: absolute;
+    top:0%;
+    left:28%;
+    width: 20%;
+    height: 20%;
+    z-index: 6;
+  }
+
+  .pb1 {
+    position: absolute;
+    top:2%;
+    left: 80%;
+    width: 19%;
+    height: 47%;
+    z-index: 6;
+    border-radius: 12px;
+    border: 1px solid black;
+    align-content: center;
+  }
+  .pb2 {
+    position: absolute;
+    top:52%;
+    left:80%;
+    width: 19%;
+    height: 47%;
+    z-index: 6;
+    border-radius: 12px;
+    border: 1px solid black;
+
+  }
+
+  .flechas1 {
+    position: absolute;
+    top:2%;
+    left:80%;
+    width: 19%;
+    height: 29%;
+    z-index: 6;
+    background-color: white; //rgba(color($colors, dark), .25);
+    .animated {
+      position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+      &.animated-3 {
+        animation-delay: .25s;
+      }
+
+      &.animated-2 {
+        animation-delay: .5s;
+      }
+
+      &.animated-1 {
+        animation-delay: .75s;
+      }
+
+    }
+
+
+  }
+  .flechas2 {
+    position: absolute;
+    top:31%;
+    left:29%;
+    width: 19%;
+    height: 29%;
+    z-index: 6;
+    background-color: rgba(color($colors, dark), .25);
+
+  }
+  .flechas1 {
+    position: absolute;
+    top:63%;
+    left:80%;
+    width: 19%;
+    height: 29%;
+    z-index: 6;
+    background-color: rgba(color($colors, dark), .25);
+
+  }
+  .pimage {
+    position: absolute;
+    top:5%;
+    left:5%;
+    width: 20%;
+    height: 20%;
+    z-index: 2;
+  }
+
+  .plogo {
+    position: absolute;
+    top:5%;
+    left:5%;
+    width: 20%;
+    height: 20%;
+    z-index: 2;
+  }
+
+ .b1 {
+    position: relative;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .avion {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}

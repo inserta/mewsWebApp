@@ -1,0 +1,88 @@
+page-keys {
+	.key ion-label{
+		margin: 0px;
+	}
+
+	.box-search-keys {
+		border: 1px solid #000;
+	}
+
+	.qr-identitie {
+		margin: 0px;
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.alert {
+		ion-label {
+			margin-right: 0;
+		}
+
+		.small {
+			margin-left: .5rem;
+			margin-right: .5rem;
+		}
+	}
+
+
+
+  .mbutton1 {
+
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #000066;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+  }
+
+
+    .mbutton1off {
+
+      font-size: 1.25em;
+      font-weight: 700;
+      color: white;
+      background-color: #777777;
+      border-radius: 12px;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+
+    }
+
+  .mbutton2 {
+
+    background-color: white;
+    color: black;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    height: 40px;
+
+  }
+
+  .box {
+    //position: absolute;
+
+    background-color: #000066;
+    color:white;
+    height: 20%;
+
+  }
+
+  .boxwhite {
+  //position: absolute;
+
+  background-color: white;
+  border-radius: 12px;
+  margin: 5px;
+
+  }
+
+}

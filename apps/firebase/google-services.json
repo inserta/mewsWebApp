@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "89222153541",
+    "firebase_url": "https://becheckin-86455.firebaseio.com",
+    "project_id": "becheckin-86455",
+    "storage_bucket": "becheckin-86455.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89222153541:android:c278f13f39afd5a7",
+        "android_client_info": {
+          "package_name": "es.pro.becheckin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89222153541-0pvfug2opn53pb81ir5cvvfe3qt9ucft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.pro.becheckin",
+            "certificate_hash": "e38c0dc6d9bb4bcc5861c39556cba102882d21ba"
+          }
+        },
+        {
+          "client_id": "89222153541-gb8d41g3t5t9psofar1jf4a6c094ckcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTaaMdWhAJEVoab-hx4l14wUS-LrPz0sg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89222153541-gb8d41g3t5t9psofar1jf4a6c094ckcu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "89222153541-cgi2lmsp93addt2ln3b3anbgr32hh7b1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "es.pro.becheckin"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

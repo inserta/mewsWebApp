@@ -1,0 +1,217 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/* Menu */
+ion-menu {
+    .toolbar-title {
+        font-size:  2rem;
+    }
+
+    .blank-button {
+        background: transparent;
+        box-shadow: none;
+        color: color($colors, blank);
+
+        &.activated {
+            background: transparent;
+        }
+    }
+}
+
+/* Style for ion title */
+ion-title.new-padding-title {
+    padding-left: 5rem;
+    padding-right: 5rem;
+
+     &.menu-color {
+        .toolbar-title-ios {
+            color: color($colors, menu-title)!important;
+        }
+    } 
+
+}       
+
+        
+/* Style for logo */
+.logo {
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    width: 40vw;
+}
+
+/* Buttons */
+.big-radius {
+    border-radius: $button-ios-border-radius;
+}
+
+.button-shadow {
+    box-shadow: 0 2px 4px 1px rgba(0,0,0,0.18);
+}
+
+.button-full.outline-border {
+    border-radius: $button-ios-border-radius;
+    border-left-width: .1rem;
+    border-right-width: .1rem;
+}
+
+.button-clear {
+    font-size: 1.4rem;
+    text-decoration: underline;
+}
+
+.no-border {
+    border: none;
+}
+
+/* ion-label stacked */
+ion-label[stacked] {
+    font-size: $font-size-base;
+}
+
+/* Ion-list and ion-item styles */
+.list-ios > .item-block:first-child {
+    border-top: none;
+}
+
+ion-list {
+    ion-item {
+        &.item-block {
+            & > .item-inner {
+                ion-select {
+                    .select-icon {
+                        width: $font-size-base;
+
+                        &:before {
+                            content: '\f3d0';
+                            font-family: "Ionicons";
+                            font-size: 2.8rem;
+                            color: $primary-text-color;
+                        }    
+                    }
+
+                    .select-icon-inner {
+                        border:none;
+                    }
+                }
+
+                ion-icon {
+                    &.input-icon-right {
+                        margin-right: 0;
+                        @extend .icon-large-size;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Navbar */
+ion-navbar {
+    ion-title {
+        padding-left: 24vw;
+        padding-right: 24vw; 
+    }
+}
+
+/* Style for alert elements */
+.alert {
+    padding: .5rem;
+    box-shadow: 0 2px 4px 0 rgba(62,64,78,0.24);
+    background: color($colors, danger);
+    color: #fff;
+
+    &-success {
+        background: color($colors, success);
+    } 
+}
+
+.button-alert {
+    padding: 1.1rem 1.7rem;
+    font-size: $font-size-small;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: rgba(0,0,0,0.2);
+    text-transform: uppercase;
+}   
+
+/* Style for font sizes */
+.small {
+    font-size: 1.5rem;
+}
+
+.extra-small {
+    font-size: 1.4rem;
+}
+
+strong {
+    display: block;
+}
+
+.label-text-color{
+  color: color($colors, default);
+}
+
+.error-message {
+    font-size: 1.4rem;
+    color: color($colors, danger);
+}
+
+.no-white-space {
+    overflow: initial;
+    white-space: normal;
+    text-overflow: initial;
+}
+
+.blank-button {
+    color: color($colors, blank);
+}
+
+.menu-background {
+    background: color($colors, primary);
+}
+
+/* Style for icons */
+.icon-default-size {
+    font-size: $font-size-base;
+}
+
+.icon-large-size {
+    font-size: 4.8rem;
+}
+
+
+/*@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: 
+landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}*/
+
+@font-face {
+    font-family: 'fontbecheckin';
+    src: url('../assets/fonts/KeepCalm-Medium.ttf') format ('truetype');
+    font-weght: normal;
+    font-style: normal;
+
+}

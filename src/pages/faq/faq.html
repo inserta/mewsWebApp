@@ -1,0 +1,19 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons start>
+			<button margin-left ion-button clear icon-only menuToggle>
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title>{{ 'FAQS.TITLE' | translate }}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding text-center no-bounce>
+	<div class="faq-list">
+		<button block ion-button margin-bottom outline color="default" class="button-shadow no-white-space" (click)="faqDetail(faq)"
+		 *ngFor="let faq of faqs">
+			{{ faq.question | translate }}
+		</button>
+	</div>
+</ion-content>

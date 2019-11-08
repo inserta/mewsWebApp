@@ -1,0 +1,667 @@
+<ion-content>
+  <div style="height:100%;margin-bottom:0px !important;">
+    <div #map id="map" style="margin-bottom:0px !important;"></div>
+
+    <!-- GEOLOCALIZACION USUARIO Y HOTEL -->
+    <!-- CERRAR SESIÓN -->
+    <div style="right:0px;top:0px;position: absolute;">
+      <button (click)="cerrarSesion()" class="cabecera"><img src='assets/imgs/maps/goout.png'
+          style="height:30px;width:30px;"></button>
+    </div>
+    <!-- GEOLOCALIZAR USUARIO -->
+    <div style="right:0px;top:59px;position: absolute;">
+      <button (click)="goToUser()" class="cabecera"><img src='assets/imgs/maps/user_position.png'
+          style="height:30px;width:30px;"></button>
+    </div>
+    <!-- GEOLOCALIZAR HOTEL -->
+    <div style="right:0px;top:118px;position: absolute;">
+      <button (click)="goToHotel()" class="cabecera"><img src='assets/imgs/maps/ihotel.png'
+          style="height:30px;width:30px;"></button>
+    </div>
+
+    <!-- COMENTADO -->
+    <!-- <div [hidden]="!hidecategorias" style="background-color: rgba(204, 229, 236, 0.8);border-radius:12px;bottom:20px;padding-left:5px;position: absolute;width:304px;"> -->
+    <!--   <div [hidden]="!hidecategorias || !hidelistmode || !hidehomecontrol"  style="right:10px;top:55px;position: absolute;">
+          <button (click)="showListMode()" class="cabecera" style="height:50px;"><img src='assets/imgs/maps/modelist.png' style="height:30px;width:30px;"></button> -->
+    <!-- <button (click)="showListMode()" class="puntos" style="background-color: rgba(24, 114, 139, 0.8)">{{ 'MAP.TEXTLISTADO' | translate }}</button> -->
+    <!--  <button (click)="showControlHome()"  class="puntos" style="background-color: rgba(24, 114, 139, 0.8)">{{ 'MAP.TEXTCONTROL' | translate }}</button> -->
+    <!-- <button (click)="showCategorias()"  class="puntos" style="background-color: rgba(24, 114, 139, 0.8)">{{ 'MAP.TEXTCATEGORIAS' | translate }}</button>  -->
+    <!--  <button (click)="nada()"  class="puntos" style="background-col|| !hidehomecontrolor: rgba(24, 114, 139, 0.8)">{{ 'MAP.TEXTRUTAS' | translate }}</button> -->
+    <!-- <button (click)="nada()"  class<="puntos" style="background-color: rgba(24, 114, 139, 0.8)">{{ 'MAP.TEXTSITIOS' | translate }}</button> -->
+    <!--  </div>
+      <div [hidden]="!hidecategorias || !hidelistmode || !hidehomecontrol"  style="right:10px;top:108px;position: absolute;">
+          <button (click)="showCategorias()" class="cabecera" >style="height:50px;"><img src='assets/imgs/maps/filtering.png' style="height:30px;width:30px;"></button>
+     </div>
+     <div [hidden]="!hidecategorias || !hidelistmode || !hidehomecontrol"  style="right:10px;top:161px;position: absolute;">
+        <button (click)="showInfoPDF()" class="cabecera" style="height:50px;"><img src='assets/imgs/maps/infopdf.png' style="height:30px;width:30px;"></button>
+   </div> -->
+
+
+
+
+    <div class="place_info2" [class.active]="show_km">
+      <!--<div class="close_info" (click)="show_km = false">×</div>-->
+      <div class="info_content">
+        <!--
+                <div *ngIf="!b_gotoUser"  class="title">{{ 'MAP.DISTANCE' | translate }} : Hotel</div>
+                <div *ngIf="b_gotoUser"  class="title">{{ 'MAP.DISTANCE' | translate }} : User</div>
+                <br>-->
+        <div>
+          <ion-item no-lines class="mitem" *ngFor="let loc of kms" (click)="go(loc)">
+            <strong>{{ loc.name }}</strong>
+            <div class="center">
+              Distancia: {{ loc.km | number: '2.1-2' }} kms
+            </div>
+
+          </ion-item>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="place_info" [class.active]="show_place_info == true && !show_km">
+    <div class="close_info" (click)="closeInfo()">×</div>
+    <div class="info_content" *ngIf="show_place_info">
+      <div class="title">{{ info_name }}</div>
+      <div class="desc">{{ info_desc }}</div>
+      <div class="recomendacion" *ngIf="info_direccion != ''">
+        <div class="text">
+          Dirección:
+        </div>
+        <div class="value">
+          {{ info_direccion }}
+        </div>
+      </div>
+      <div class="recomendacion" *ngIf="info_recomendaciones != ''">
+        <div class="text">
+          Recomendaciones:
+        </div>
+        <div class="value">
+          {{ info_recomendaciones }}
+        </div>
+      </div>
+      <div class="image" *ngIf="info_img">
+        <img src="{{ base64 }}{{ info_img }}">
+      </div>
+      <button ion-button block class="openInApp" (click)="openMapInApp()">{{ 'MAP.COMOLLEGAR' | translate }}</button>
+      <button *ngIf="this.info_link != ''" ion-button block class="openInApp" color="secondary"
+        (click)="openLink()">{{ 'MAP.MASINFO' | translate }}</button>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- MY POSITION -->
+  <!--
+<div [hidden]="true"  style="overflow:hidden;margin-left:10px;color: white;bottom:25px;padding-left:10px;position: absolute;width:95%;height:50%;background: rgba(24, 114, 139, 0.8);position: absolute;box-sizing: border-box;border-radius: 12px;">
+  
+  <div style="position: absolute;top: 8px;right: 5px;" (click)="closeMyPosition()"><span class="close-icon"></span></div>
+
+   <div style="text-align: center;font-family: 'fontbecheckin'">Dirección</div>
+   <div>{{address}}</div>
+  </div> -->
+
+
+
+</ion-content>
+
+<content-drawer #coda [options]="drawerOptions">
+  <br><br>
+  <div class="content">
+    <div class="place_info" [class.active]="show_place_info == true && !show_km">
+      <div class="close_info" (click)="closeInfo()">×</div>
+      <div class="info_content" *ngIf="show_place_info">
+        <div class="title">{{ info_name }}</div>
+        <div class="desc">{{ info_desc }}</div>
+        <div class="recomendacion" *ngIf="info_recomendaciones != ''">
+          <div class="text">
+            Recomendaciones:
+          </div>
+          <div class="value">
+            {{ info_recomendaciones }}
+          </div>
+        </div>
+        <div class="image" *ngIf="info_img">
+          <img src="{{ base64 }}{{ info_img }}">
+        </div>
+        <button ion-button block class="openInApp" (click)="openMapInApp()">{{ 'MAP.COMOLLEGAR' | translate }}</button>
+        <button *ngIf="this.info_link != ''" ion-button block class="openInApp" color="secondary"
+          (click)="openLink()">{{ 'MAP.MASINFO' | translate }}</button>
+      </div>
+    </div>
+    <!-- CATEGORIAS -->
+    <div [hidden]="!icon1"
+      style="margin-left:2px;color: black;padding-left:5px;position: absolute;top:5px;height:90%;width:95%;position: absolute;box-sizing: border-box;border-radius: 12px;">
+      <div style="position: absolute;right: 5px;" (click)="ocultaPanel()"><span class="close-icon-black"></span></div>
+
+      <div style="text-align: center;font-family: 'fontbecheckin'">{{ 'MAP.SELECTCAT' | translate }}</div>
+
+      <div style="width:50%;text-align: center;font-family: 'fontbecheckin'"></div>
+      <ion-item style="width:70%">
+        <ion-label style="padding-left: 5px;text-align: justify;color: black;font-family: 'fontbecheckin'">
+          {{ 'MAP.INDICE' | translate }}</ion-label>
+        <ion-checkbox [(ngModel)]="checkboxall" color="primary" checked (ionChange)="filter_categorie(100)">
+        </ion-checkbox>
+      </ion-item>
+      <ion-scroll class="scrolllistado" overflow-y=hidden overflow-x=hidden scrollV="false" scrollY="true"
+        style="width: 100%; height: 80%;">
+        <ion-item>
+          <table>
+            <tr>
+              <td *ngIf="array_filter_categorie[0]" (click)="filter_categorie(0)" class="puntos"><img
+                  src="assets/imgs/maps/ivisita.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.VISITA' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[0]" (click)="filter_categorie(0)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/ivisitab.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.VISITA' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[1]" (click)="filter_categorie(1)" class="puntos"><img
+                  src="assets/imgs/maps/iexcursiones1.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.EXCURSIONES1' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[1]" (click)="filter_categorie(1)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/iexcursiones1b.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.EXCURSIONES1' | translate }}</span></td>
+            </tr>
+            <br>
+            <tr>
+              <td *ngIf="array_filter_categorie[2]" (click)="filter_categorie(2)" class="puntos"><img
+                  src="assets/imgs/maps/iexcursiones2.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.EXCURSIONES2' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[2]" (click)="filter_categorie(2)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/iexcursiones2b.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.EXCURSIONES2' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[3]" (click)="filter_categorie(3)" class="puntos"><img
+                  src="assets/imgs/maps/espectaculos.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.ESPECTACULOS' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[3]" (click)="filter_categorie(3)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/espectaculosb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.ESPECTACULOS' | translate }}</span></td>
+            </tr>
+            <br>
+            <tr>
+              <td *ngIf="array_filter_categorie[4]" (click)="filter_categorie(4)" class="puntos"><img
+                  src="assets/imgs/maps/iparques.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.BAR' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[4]" (click)="filter_categorie(4)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/iparquesb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.BAR' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[5]" (click)="filter_categorie(5)" class="puntos"><img
+                  src="assets/imgs/maps/ibarco.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.BARCO' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[5]" (click)="filter_categorie(5)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/ibarcob.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.BARCO' | translate }}</span></td>
+            </tr>
+            <br>
+            <tr>
+              <td *ngIf="array_filter_categorie[6]" (click)="filter_categorie(6)" class="puntos"><img
+                  src="assets/imgs/maps/irutas.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.RUTAS' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[6]" (click)="filter_categorie(6)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/irutasb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.RUTAS' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[7]" (click)="filter_categorie(7)" class="puntos"><img
+                  src="assets/imgs/maps/ispa.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.BALNEARIOS' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[7]" (click)="filter_categorie(7)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/ispab.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.BALNEARIOS' | translate }}</span></td>
+            </tr>
+            <br>
+            <tr>
+              <td *ngIf="array_filter_categorie[8]" (click)="filter_categorie(8)" class="puntos"><img
+                  src="assets/imgs/maps/imuseos.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.MUSEOS' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[8]" (click)="filter_categorie(8)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/imuseosb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.MUSEOS' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[9]" (click)="filter_categorie(9)" class="puntos"><img
+                  src="assets/imgs/maps/itransfer.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.TRANSFER' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[9]" (click)="filter_categorie(9)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/itransferb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.TRANSFER' | translate }}</span></td>
+            </tr>
+            <br>
+            <tr>
+              <td *ngIf="array_filter_categorie[10]" (click)="filter_categorie(10)" class="puntos"><img
+                  src="assets/imgs/maps/ialquiler.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.ALQUILER' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[10]" (click)="filter_categorie(10)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/ialquilerb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.ALQUILER' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[11]" (click)="filter_categorie(11)" class="puntos"><img
+                  src="assets/imgs/maps/iagua.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.AGUA' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[11]" (click)="filter_categorie(11)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/iaguab.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.AGUA' | translate }}</span></td>
+            </tr>
+            <br>
+            <tr>
+              <td *ngIf="array_filter_categorie[12]" (click)="filter_categorie(12)" class="puntos"><img
+                  src="assets/imgs/maps/ipunto.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.PUNTO' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[12]" (click)="filter_categorie(12)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/ipuntob.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.PUNTO' | translate}}</span></td>
+              <td style="width:2%"></td>
+              <td *ngIf="array_filter_categorie[13]" (click)="filter_categorie(13)" class="puntos"><img
+                  src="assets/imgs/maps/iother.png" style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.OTHER' | translate }}</span></td>
+              <td *ngIf="!array_filter_categorie[13]" (click)="filter_categorie(13)" class="puntosblack"
+                style="width:50%;background-color: #5a5e5ac4"><img src="assets/imgs/maps/iotherb.png"
+                  style="width:30px;height:30px;"><span
+                  style="padding-left:5px;white-space: NORMAL;">{{ 'MAP.OTHER' | translate }}</span></td>
+            </tr>
+            <br>
+          </table>
+        </ion-item>
+        <div style="padding-bottom: 250px;">
+        </div>
+      </ion-scroll>
+
+    </div>
+
+
+
+
+
+    <!-- MODO HOTEL -->
+    <div [hidden]="!icon2"
+      style="overflow:hidden;margin-left:10px;color:black ;padding-left:10px;position: absolute;top:5px;width:95%;height:100%;position: absolute;box-sizing: border-box;border-radius: 12px;">
+      <div style="position: absolute;right: 5px;" (click)="ocultaPanel()"><span class="close-icon-black"></span></div>
+      <div style="padding-top:10px;padding-bottom:10px;text-align: center;font-family: 'fontbecheckin'">{{hotel_name}}
+      </div>
+      <ion-scroll class="scrolllistado" overflow-y=hidden overflow-x=hidden scrollV="false" scrollY="true"
+        style="width: 100%; height: 100%;">
+
+        <div style="height:100%">
+          <div class="itemshome">
+            <div style="padding-top:5px;text-align: center;font-family: 'fontbecheckin'">
+              {{ 'FASTCHECKIN.RESERVE' | translate }}: {{code_reserve}}</div>
+            <div style="padding-top:5px;text-align: center;font-size: 14px;font-family: 'fontbecheckin'">
+              {{ period_reserve.start | date: 'd MMM y' }} / {{ period_reserve.finish | date: 'd MMM y' }}</div>
+            <table style="width:95%;text-align: left;">
+              <tr style="text-align: left;">
+                <td>
+                  <button ion-button clear (click)="cerrarSesion()"><img src="../assets/imgs/cerrarsesion.png"
+                      class="iconsocial"><span class="text-introduction"
+                      style="padding-left:5px;color: black;">{{ 'MENU.CLOSE_SESSION' | translate }}</span></button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <br>
+          <div class="itemshome">
+            <div style="padding-top:5px;text-align: center;font-family: 'fontbecheckin'"></div>
+            <!-- DATOS WIFI -->
+            <img src="../assets/imgs/wifi.png" style="width:50px;height:50px"><span class="text-introduction"
+              style="color: black;">SSID: {{wifi.wifiSSID}} &nbsp;&nbsp;&nbsp; PASS: {{wifi.wifiPASS}}</span>
+          </div>
+          <br>
+          <!-- CONTACTO -->
+          <div class="itemshome"
+            *ngIf="contacthotel.phone!='' && contacthotel.phone!=undefined && contacthotel.whatsapp!='' && contacthotel.whatsapp!=undefined && contacthotel.email!='' && contacthotel.email!=undefined">
+            <div style="text-align: center;font-family: 'fontbecheckin';color: black;">
+              {{ 'MAP.CONTACTA_HOTEL' | translate }}</div>
+            <br>
+            <table style="width:95%;text-align: center;">
+              <tr style="text-align: center;">
+                <td *ngIf="contacthotel.phone!='' && contacthotel.phone!=undefined">
+                  <a [href]="getMessagePhone()"><button ion-button clear><img src="../assets/imgs/phone.png"
+                        class="iconsocial"></button></a>
+                </td>
+                <td *ngIf="contacthotel.whatsapp!='' && contacthotel.whatsapp!=undefined">
+                  <button ion-button clear (click)="sharedWhatsapp()"><img src="../assets/imgs/whatsapp.png"
+                      class="iconsocial"></button>
+                </td>
+                <td *ngIf="contacthotel.email!='' && contacthotel.email!=undefined">
+                  <a [href]="getMessageEmail()"><button ion-button clear><img src="../assets/imgs/email.png"
+                        class="iconsocial"></button></a>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </div>
+          <br>
+          <!-- CONTROL DE HUÉSPEDES -->
+          <div class="itemshome">
+            <div style="padding-top:5px;text-align: center;font-family: 'fontbecheckin'">
+              {{ 'MAP.HUESPEDES' | translate }}</div>
+            <button style="height:30px;text-align: left;top:-5px;" ion-button clear (click)="anadirhuesped()"><img
+                src="../assets/imgs/avatariniciomas.png" style="width:30px;height:30px;"><span class="text-introduction"
+                style="padding-left:5px;color: black;"><u>{{ 'MAP.ADD_GUEST' | translate }}</u></span></button>
+            <table style="width:95%;text-align: left;">
+              <tr *ngFor="let item of huespedes;let i = index">
+                <td>
+                  <button style="height:30px;text-align: left;" ion-button clear (click)="viewhuesped(item)"><img
+                      src="../assets/imgs/avatarinicio.png" style="width:30px;height:30px;"><span
+                      class="text-introduction" style="padding-left:5px;color: black;">{{item.fastcheckin.surnameOne}},
+                      {{item.fastcheckin.name}}</span></button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <br><br><br>
+
+          <div style="padding-bottom: 250px;"></div>
+        </div>
+      </ion-scroll>
+    </div>
+
+
+    <!-- MODO LISTADO -->
+    <div [hidden]="!icon3"
+      style="overflow:hidden;margin-left:5px;color: black;top:5px;padding-left:10px;position: absolute;width:95%;height:95%;position: absolute;box-sizing: border-box;border-radius: 12px;">
+      <div style="position: absolute;right: 5px;" (click)="ocultaPanel()"><span class="close-icon-black"></span></div>
+      <div style="text-align: center;font-family: 'fontbecheckin'">{{ 'MAP.ACTIVIDADES' | translate }}</div>
+
+      <ion-row style="display:inline-block" id="radioGrupo" radio-group [(ngModel)]="typeDocument">
+        <ion-col style="padding:0px;">
+          <div radio-group [(ngModel)]="distancia_a">
+            <ion-item style="background: transparent;">
+              <ion-radio class="radio radio-inline radio-gray" mode="md" value="M" (ionSelect)="goToUser()"></ion-radio>
+              <ion-label class="text-radio">{{ 'MAP.DISTANCIA_MI' | translate }}</ion-label>
+            </ion-item>
+            <ion-item style="background: transparent;">
+              <ion-radio class="radio radio-inlinetransparent radio-gray" [checked]="true" mode="md" value="H"
+                (ionSelect)="goToHotel()"></ion-radio>
+              <ion-label class="text-radio" style="padding-right: 10px;">{{ 'MAP.DISTANCIA_HOTEL' | translate }}
+              </ion-label>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-scroll class="scrolllistado" overflow-y=hidden overflow-x=hidden scrollV="false" scrollY="true"
+        style="width: 100%; height: 100%;">
+        <div>
+          <div style="padding-bottom:30px;margin-bottom:130px;">
+            <ion-item no-lines class="mitem_titulo" *ngFor="let loc of kms;let i = index" (click)="listadoclick(loc)"
+              style="border-radius:12px;border: 1px solid #000000;margin: 5px;width: 95%;background-color:rgba(0,53,128,0.8)">
+              <div
+                style="position: absolute;top: 13px;left:5px;color:white;border-radius: 100px;border: 1px solid #000000;font-size: 12px;">
+                <span style="padding:2px;">{{i+1}}</span></div>
+              <div style="padding-left:10px; ">
+                <div class="mitem_titulo"><span class="mitem_titulo" style="white-space: normal;">{{ loc.name }}</span>
+                </div>
+                <div class="mitem">
+                  {{ 'MAP.DISTANCIA' | translate }}: {{ loc.km | number: '2.1-2' }} kms
+                </div>
+              </div>
+
+            </ion-item>
+          </div>
+        </div>
+        <div style="padding-bottom: 250px;">
+        </div>
+      </ion-scroll>
+    </div>
+
+  </div>
+
+  <!-- LLAVES CHECKIN -->
+  <div [hidden]="!icon4"
+    style="overflow:hidden;margin-left:10px;color:black ;top:5px;bottom:25px;padding-left:10px;position: absolute;width:95%;height:90%;position: absolute;box-sizing: border-box;border-radius: 12px;">
+    <div style="position: absolute;right: 5px;" (click)="ocultaPanel()"><span class="close-icon-black"></span></div>
+    <div style="padding-top:10px;padding-bottom:10px;text-align: center;font-family: 'fontbecheckin'">{{hotel_name}}
+    </div>
+    <ion-scroll class="scrolllistado" overflow-y=hidden overflow-x=hidden scrollV="false" scrollY="true"
+      style="width: 100%; height: 100%;">
+
+      <!-- LLAVES -->
+      <div ng-if="keys.length==0" style="height:90%">
+        <div class="itemshome" *ngIf="keys.length">
+          <div style="padding-top:5px;text-align: center;font-family: 'fontbecheckin'">
+            {{ 'FASTCHECKIN.RESERVE' | translate }}: {{code_reserve}}</div>
+          <div style="padding-top:5px;text-align: center;font-size: 14px;font-family: 'fontbecheckin'">
+            {{ period_reserve.start | date: 'd MMM y' }} / {{ period_reserve.finish | date: 'd MMM y' }}</div>
+          <table>
+            <tr style="text-align: center;">
+
+              <!-- DATOS LLAVES -->
+              <td *ngFor="let item of keys;let i = index" style="padding:5px;">
+                <button
+                  style="width:80px;height:80px;background-color: rgba(121, 207, 118, 0.699);border-radius: 100px;"
+                  [hidden]="!item.room.state" ion-button clear (click)="closeDoorClick(i)"><img
+                    src="../assets/imgs/opendoor.png"></button>
+                <button style="width:80px;height:80px;background-color: rgba(245, 37, 37, 0.699);border-radius: 100px;"
+                  [hidden]="item.room.state" ion-button clear (click)="openDoorClick(i)"><img
+                    src="../assets/imgs/closedoor.png" style="color:red;border-radius: 100px;"></button>
+              </td>
+            </tr>
+            <tr style="text-align: center;">
+              <td *ngFor="let item of keys;let i = index" style="padding:5px;">
+                <span class="text-introduction" style="color: black;">{{item.room.name}}</span>
+                <span class="text-introduction" style="color: black;"
+                  [hidden]="item.room.state">{{ 'MAP.CERRADA' | translate }}</span>
+                <span class="text-introduction" style="color: black;"
+                  [hidden]="!item.room.state">{{ 'MAP.ABIERTA' | translate }}</span>
+
+            </tr>
+            <tr style="text-align: center;">
+              <!-- DATOS BOMBILLA -->
+              <td *ngFor="let item of keys;let i = index" style="padding:10px;">
+                <button style="width:80px;height:80px;background-color: rgba(226, 223, 33, 0.699);border-radius: 100px;"
+                  [hidden]="!item.room.beluxs.length || !item.room.statelight" ion-button clear
+                  (click)="closeLight(i)"><img src="../assets/imgs/bombillaon.png"></button>
+                <button
+                  style="width:80px;height:80px;background-color: rgba(117, 114, 114, 0.699);border-radius: 100px;"
+                  [hidden]="!item.room.beluxs.length || item.room.statelight" ion-button clear
+                  (click)="openLight(i)"><img src="../assets/imgs/bombillaoff.png"
+                    style="color:red;border-radius: 100px;"></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <!-- CONTACTO -->
+      <div class="itemshome"
+        *ngIf="(contacthotel.phone!='' && contacthotel.phone!=undefined) || (contacthotel.whatsapp!='' && contacthotel.whatsapp!=undefined) || (contacthotel.email!='' && contacthotel.email!=undefined) || (hotel_direccion!='' && hotel_direccion!=undefined)">
+        <div style="text-align: center;font-family: 'fontbecheckin';color: black;">
+          {{ 'MAP.CONTACTA_HOTEL' | translate }}</div>
+        <br>
+        <div style="text-align: center;">
+          <h6>{{ this.hotel_direccion }}</h6>
+        </div>
+        <table style="width:95%;text-align: center;">
+          <tr style="text-align: center;">
+            <td *ngIf="contacthotel.phone!='' && contacthotel.phone!=undefined">
+              <a [href]="getMessagePhone()"><button ion-button clear><img src="../assets/imgs/phone.png"
+                    class="iconsocial"></button></a>
+            </td>
+            <td *ngIf="contacthotel.whatsapp!='' && contacthotel.whatsapp!=undefined">
+              <button ion-button clear (click)="sharedWhatsapp()"><img src="../assets/imgs/whatsapp.png"
+                  class="iconsocial"></button>
+            </td>
+            <td *ngIf="contacthotel.email!='' && contacthotel.email!=undefined">
+              <a [href]="getMessageEmail()"><button ion-button clear><img src="../assets/imgs/email.png"
+                    class="iconsocial"></button></a>
+            </td>
+          </tr>
+        </table>
+        <br>
+      </div>
+      <div style="padding-bottom: 250px;">
+      </div>
+    </ion-scroll>
+  </div>
+
+  <!-- TOP ACTIVITIES -->
+
+  <div [hidden]="!icon5"
+    style="overflow:hidden;margin-left:2px;color: black;bottom: 25px;top:5px;padding-left:10px;position: absolute;width:95%;height:95%;box-sizing: border-box;border-radius: 12px;">
+    <div style="position: absolute;right: 5px;" (click)="ocultaPanel()"><span class="close-icon-black"></span></div>
+
+    <div style="font-size: 16px;color: rgb(0,53,128); text-align: center;font-family: 'fontbecheckin'">
+      {{ 'MAP.ACTIVIDADESTOP' | translate }}</div>
+    <div style="height:100%;padding-top:20px;">
+      <ion-list *ngIf="dates_top_activities.length" style="height:100%">
+        <ion-scroll class="scrolllistado" overflow-y=hidden overflow-x=hidden scrollV="false" scrollY="true"
+          style="width: 100%; height: 100%;">
+
+
+          <ion-item *ngFor="let item of dates_top_activities;let i = index">
+            <div (click)="openPreview(item.img_code,i,item.name)" class="center-banner-activitie">{{item.name}}</div>
+            <img *ngIf="item.img_code!='' && item.img_code!=undefined" [src]="sanitize(item.img_code)"
+              class="center-banner-imagen-activitie" tappable (click)="openPreview(item.img_code,i,item.name)">
+          </ion-item>
+          <div style="padding-bottom: 250px;">
+          </div>
+        </ion-scroll>
+      </ion-list>
+      <!-- EN CASO DE NO TENER TOP ACTIVITIES  -->
+      <div *ngIf="!dates_top_activities.length" class="pie-top">
+        {{ 'MAP.SINTOPACTIVITIE' | translate }}
+      </div>
+    </div>
+
+  </div>
+
+
+
+</content-drawer>
+<ion-footer class="foo">
+
+
+
+  <div style="text-align: center;">
+    <table width="95%">
+      <tr>
+        <td width="10%">
+          <button (click)="showCategorias()" style="background-color:transparent;">
+            <ion-icon name="options"
+              [ngStyle]="icon1 ? { 'font-size':'2.2em', 'color':'blue'} :  { 'font-size':'2.2em', 'color':'black'}">
+            </ion-icon>
+          </button>
+          <div [ngStyle]="icon1 ? { 'font-size':'0.8em', 'color':'blue'} :  { 'font-size':'0.8em', 'color':'black'}">
+            {{ 'MAP.CAT' | translate }}</div>
+        </td>
+        <td width="10%">
+          <button (click)="goToHotelShow()" style="background-color:transparent;">
+            <ion-icon name="home"
+              [ngStyle]="icon2 ? { 'font-size':'2.2em', 'color':'blue'} :  { 'font-size':'2.2em', 'color':'black'}">
+            </ion-icon>
+          </button>
+          <div [ngStyle]="icon2 ? { 'font-size':'0.8em', 'color':'blue'} :  { 'font-size':'0.8em', 'color':'black'}">
+            {{ 'MAP.HOTEL' | translate }}</div>
+
+        </td>
+        <td width="10%">
+          <button (click)="showListMode()" style="background-color:transparent;">
+            <ion-icon name="apps"
+              [ngStyle]="icon3 ? { 'font-size':'2.2em', 'color':'blue'} :  { 'font-size':'2.2em', 'color':'black'}">
+            </ion-icon>
+          </button>
+          <div [ngStyle]="icon3 ? { 'font-size':'0.8em', 'color':'blue'} :  { 'font-size':'0.8em', 'color':'black'}">
+            {{ 'MAP.KM' | translate }}</div>
+        </td>
+        <td width="10%">
+          <button (click)="showKeyHotel()" style="background-color:transparent;">
+            <ion-icon name="key"
+              [ngStyle]="icon4 ? { 'font-size':'2.2em', 'color':'blue'} :  { 'font-size':'2.2em', 'color':'black'}">
+            </ion-icon>
+          </button>
+          <div [ngStyle]="icon4 ? { 'font-size':'0.8em', 'color':'blue'} :  { 'font-size':'0.8em', 'color':'black'}">
+            {{ 'MAP.LLAVES' | translate }}</div>
+        </td>
+        <td width="10%">
+          <button (click)="showTopActivities()" style="background-color:transparent;">
+            <ion-icon name="images"
+              [ngStyle]="icon5 ? { 'font-size':'2.2em', 'color':'blue'} :  { 'font-size':'2.2em', 'color':'black'}">
+            </ion-icon>
+          </button>
+          <div [ngStyle]="icon5 ? { 'font-size':'0.8em', 'color':'blue'} :  { 'font-size':'0.8em', 'color':'black'}">
+            {{ 'MAP.ACTIVIDADES' | translate }}</div>
+        </td>
+        <td width="10%">
+          <button (click)="showGuia()" style="background-color:transparent;">
+            <ion-icon name="paper"
+              [ngStyle]="icon6 ? { 'font-size':'2.2em', 'color':'blue'} :  { 'font-size':'2.2em', 'color':'black'}">
+            </ion-icon>
+          </button>
+          <div [ngStyle]="icon6 ? { 'font-size':'0.8em', 'color':'blue'} :  { 'font-size':'0.8em', 'color':'black'}">
+            {{ 'MAP.GUIA' | translate }}</div>
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+  <div *ngIf="dates_banner.length" style="height:100%">
+    <ion-slides zoom=false *ngIf="dates_banner.length" slidesPerView="1" autoplay=300 freeMode=true speed=10000
+      effect="fade" loop=false (ionSlideDidChange)="EventIonSlideReachEnd($event)">
+      <ion-slide *ngFor="let item of dates_banner">
+        <!-- <img [src]="sanitize(item.image)" tappable (click)="open_banner_link(item.link)">-->
+        <!--
+             <div (click)="open_banner_link(item.link)" class="center-banner">{{item.description}}</div>
+        
+           -->
+        <div (click)="open_banner_link(item.link)"><img [src]="sanitize(item.image)"></div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+</ion-footer>
+
+<!-- BOTTOM DRAWER BOTTOM 
+<ion-bottom-drawer [(state)]="drawerState" [minimumHeight]="minimumHeight" [dockedHeight]="dockedHeight"
+  [shouldBounce]="shouldBounce" [distanceTop]="distanceTop">
+  <div class="drawer-content">
+    Bottom Drawer Content
+  </div>
+</ion-bottom-drawer>-->
+
+
+
+<!-- BANNER -->
+<!--
+<ion-footer style="height:30%;">
+  <div style="height:50%">
+      <ion-slides zoom=false *ngIf="dates_banner.length" spaceBetween=20  slidesPerView="2" >
+          <ion-slide *ngFor="let item of dates_banner">
+           <img src="assets/imgs/banner/{{item.codigo}}.png" tappable (click)="open_banner_link(item.link)">
+           <div (click)="open_banner_link(item.link)" class="center-banner">{{item.nombre}}</div>
+          </ion-slide>
+        </ion-slides>
+  </div>
+  <br> -->
+<!-- CAJONES ACTIVIDADES TOP -->
+<!--
+  <div style="height:45%">
+     <ion-slides #slidesActivities zoom=false *ngIf="dates_top_activities.length" spaceBetween=20 loop="true" slidesPerView="2" autoplay=300 freeMode=true speed=10000 >
+      <ion-slide *ngFor="let item of dates_top_activities;let i = index">
+        <img src="assets/imgs/topactivities/{{ item.code}}.png" tappable (click)="openPreview('assets/imgs/topactivities/',item.code,'png',i,item.name)">
+        <div (click)="openPreview('assets/imgs/topactivities/',item.code,'png',i,item.name)" class="center-banner">{{item.name}}</div>
+      </ion-slide>
+    </ion-slides> -->
+
+<!-- EN CASO DE NO TENER TOP ACTIVITIES -->
+<!--  <div *ngIf="!dates_top_activities.length"  class="pie-top">
+     {{ 'MAP.SINTOPACTIVITIE' | translate }}
+     </div>
+   </div>
+</ion-footer> -->

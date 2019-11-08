@@ -1,0 +1,131 @@
+
+page-add-key {
+ 
+	input {
+		font-size: 1.8rem;
+	}
+
+    .nokeys-list {
+		margin-top: 7rem;
+  }
+  
+.introduction {
+  color: white;
+  font-size: 20px;
+  font-family: "fontbecheckin";
+  
+}
+
+.text-introduction {
+  color: white;
+  font-size: 18px;
+  font-family: "fontbecheckin";
+}
+
+.pie-down {
+  background: rgba(230, 236, 238, 0.7);
+  border-radius: 12px;
+}
+  .titulo {
+    color: rgb(24, 114, 139);
+    padding-top: 17px;
+    padding-left: 20px;
+  }
+
+  .input-reserve {
+    border-radius: 25px;
+    background-color: antiquewhite;
+    color: rgb(24, 114, 139);
+    font-family: "fontbecheckin";
+  }
+
+  .text-input-ios {
+    margin: 5px;
+    padding: 0;
+    width: calc(100% - 0);
+    font-family: "fontbecheckin";
+}
+  .center {
+
+    align:middle;
+
+  //  width: 80%;
+    bottom: 5%;
+    height: calc( 100vh / 6.5 );
+  //  width: 100%; //calc( 100vh / 3.0 );
+
+    //left:15%;
+    //right:10%;
+
+    //border-radius: 12px;
+    //border: 3px solid #459add;
+
+    padding: 5px;
+
+  }
+
+  .mbutton {
+
+    background-color: white;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+.getbackgroundimage {
+
+  background-image: url('../assets/imgs/imagenfondo.png');
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.reservation-box{
+  width: 320px;
+  height: 460px;
+  background: rgba(0, 53, 128, 0.8);
+  // background: rgba(24, 114, 139, 0.8);
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+  border-radius: 25px;
+  
+}
+.avatar{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: -46px;
+  left: calc(50% - 50px);
+}
+.iconsocial{
+  width: 43px;
+  height: 36px;
+}
+
+h1{
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+
+.imagen-pie {
+  width: 50px;
+  vertical-align: text-bottom;
+}
+.text-pie {
+  font-size: 12px;
+  color: rgb(54, 158, 187);
+  position: absolute;
+  bottom: 1px;
+  right: 5px;
+}
+}
+
+
+

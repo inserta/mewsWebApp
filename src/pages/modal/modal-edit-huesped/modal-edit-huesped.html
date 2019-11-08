@@ -1,0 +1,371 @@
+<div (click)="cancelar()"><span style="display:block;
+  box-sizing:border-box;
+  width:30px;
+  height:30px;
+  border-radius:100%;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  font-size: 20px;"></span></div>
+<!-- El paso 0 muestra formulario para meter los datos del fastcheckin de forma manual cuando falla la detección de imágenes -->
+<div class="huesped-box">
+  <div class="container_fastcheckin">
+    <!-- BOTON OMITIR -->
+    <!-- <div class="top" *ngIf="paso < 5">
+        <div class="atras">
+          <span *ngIf="paso > 1 && paso < 5 || paso == 0" (click)="atras()">{{ 'HUESPED.ATRAS' | translate }}</span>
+        </div>
+        <div *ngIf="paso < 5" class="omitir" (click)="close()">
+          {{ 'HUESPED.OMITIR' | translate }}
+        </div>
+      </div>-->
+
+    <!-- TITULO -->
+    <div class="titulo" *ngIf="paso < 5">
+      {{ 'HUESPED.TITULO_EDICION' | translate }}
+    </div>
+
+    <!-- INTRODUCCION -->
+    <div class="introduccion" *ngIf="paso > 0 && paso < 4">
+      <p>{{ 'HUESPED.CUERPO_1_EDICION' | translate }}<span class="nombre_hotel">{{hotel_name}}</span></p>
+      <p>{{ 'HUESPED.CUERPO_2_EDICION' | translate }}</p>
+      <p>{{ 'HUESPED.CUERPO_3_EDICION' | translate }}</p>
+    </div>
+
+    <!-- ELEJIR TIPO DOCUMENTO -->
+    <div class="opciones" *ngIf="paso==1">
+      <ion-list radio-group [(ngModel)]="tipoDoc" class="radio-group">
+        <ion-list-header>
+          {{ 'HUESPED.ELEGIR_TIPO_DOC' | translate }}
+        </ion-list-header>
+        <div class="en_linea">
+          <ion-item class="item item-block item-ios item-radio {{tipoDoc=='dni'? 'selected' : 'not_selected'}}">
+            <ion-label>{{ 'HUESPED.DNI' | translate }}</ion-label>
+            <ion-radio checked class="radio" value="dni"></ion-radio>
+          </ion-item>
+
+          <ion-item class="item item-block item-ios item-radio {{tipoDoc=='pasaporte'? 'selected' : 'not_selected'}}">
+            <ion-label>{{ 'HUESPED.PASAPORTE' | translate }}</ion-label>
+            <ion-radio class="radio" value="pasaporte" radio-inline></ion-radio>
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
+
+    <!-- MUESTRA IMÁGENES RECUPERADAS -->
+
+
+    <div class="introduccion" *ngIf="paso == 11">
+
+      <div class="titulo">
+        {{ 'HUESPED.TITULO_EDICION' | translate }}
+      </div>
+
+      <p>{{ 'HUESPED.CUERPO_1_EDICION_IMAGEN' | translate }}<span class="nombre_hotel">{{hotel_name}}</span></p>
+      <p>{{ 'HUESPED.CUERPO_2_EDICION_IMAGEN' | translate }} {{ 'HUESPED.CUERPO_3_EDICION_IMAGEN' | translate }}</p>
+
+
+      <span class="subtitle"
+        *ngIf="huesped.fastcheckin.typeOfDocument=='D'">{{ 'HUESPED.IMAGENES_DNI' | translate }}</span>
+      <span class="subtitle"
+        *ngIf="huesped.fastcheckin.typeOfDocument=='P'">{{ 'HUESPED.IMAGENES_PASAPORTE' | translate }}</span>
+
+
+      <!-- MUESTRA DE IMAGENES -->
+      <div class="imagenes">
+        <div class="img " *ngIf="huesped.fastcheckin.typeOfDocument=='D'">
+          <img (click)="visualizaFoto(myImage1)" #myImage1 [src]="sanitize(photosNif[1])" width="150" height="105"
+            *ngIf="paso==11 && photosNif[1]" />
+        </div>
+        <div class="img " *ngIf="huesped.fastcheckin.typeOfDocument=='D'">
+          <img (click)="visualizaFoto(myImage1)" #myImage1 [src]="sanitize(photosNif[0])" width="150" height="105"
+            *ngIf="paso==11 && photosNif[0]" />
+        </div>
+
+
+        <div class="img " *ngIf="huesped.fastcheckin.typeOfDocument=='P'">
+          <img (click)="visualizaFoto(myImage3)" #myImage3 [src]="sanitize(photosPassport[0])" width="150" height="105"
+            *ngIf="paso==11 && photosPassport[0]" />
+        </div>
+      </div>
+    </div>
+    <!-- CONFIRMACIÓN PASO 11 -->
+    <div class="formulario" *ngIf="paso==11">
+      <div class="confirmacion" *ngIf="paso==11">
+        <div class="texto_confirmacion">
+          {{ 'HUESPED.CONFIRMACION_IMAGENES' | translate }}
+        </div>
+        <div class="imagenes">
+          <div class="boton_confirmacion">
+            <span class="btn_conf" (click)="escanear_nuevo()">{{ 'HUESPED.ESCANEAR' | translate }}</span>
+          </div>
+          <div class="boton_confirmacion">
+            <span class="btn_conf" (click)="consultar_editar()">{{ 'HUESPED.ESCANEAR_CONSULTAR' | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- MUESTRA IMÁGENES ESCANEADAS -->
+    <div class="imagenes {{paso==3?'extendida':''}}" *ngIf="paso > 1 && paso < 4">
+      <div class="img {{paso==3?'extendida':''}}" *ngIf="tipoDoc=='dni'">
+        <img (click)="visualizaFoto(myImage1)" #myImage1 [src]="photosNif[1]" width="150" height="105"
+          *ngIf="paso>1 && photosNif[1]" />
+        <div class="actualiza" *ngIf="paso==3">
+          <input title="" type="file" accept="image/*" (change)="getFiles($event,2, 3)">
+          {{ 'HUESPED.CAMBIAR' | translate }}
+        </div>
+      </div>
+      <div class="img {{paso==3?'extendida':''}}" *ngIf="tipoDoc=='dni'">
+        <div class="imagen_temporal" *ngIf="paso == 2">
+          <input id="trasera2" title="" type="file" accept="image/*" (click)="resetFile('trasera2')"
+            (change)="getFiles($event,1)">
+        </div>
+        <img (click)="visualizaFoto(myImage2)" #myImage2 [src]="photosNif[0]" width="150" height="105"
+          *ngIf="paso>2 && photosNif[0]" />
+
+        <div class="actualiza" *ngIf="paso==3">
+          <input title="" type="file" accept="image/*" (change)="getFiles($event,1, 3)">
+          {{ 'HUESPED.CAMBIAR' | translate }}
+        </div>
+      </div>
+      <div class="img {{paso==3?'extendida':''}}" *ngIf="tipoDoc=='pasaporte'">
+        <img (click)="visualizaFoto(myImage3)" #myImage3 [src]="photosPassport[0]" width="150" height="105"
+          *ngIf="paso>1 && photosPassport[0]" />
+        <div class="actualiza" *ngIf="paso==3">
+          <input title="" type="file" accept="image/*" (change)="getFiles($event,3, 3)">
+          {{ 'HUESPED.CAMBIAR' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO Y BOTONES -->
+    <div class="formulario" [hidden]="paso <= 0 && paso >= 5">
+
+      <!-- BOTONES ESCANEAR IMÁGENES -->
+      <div class="escaneo" *ngIf="paso==1 && tipoDoc=='dni'">
+        <div class="info">
+          <strong>1.&nbsp;</strong> {{ 'HUESPED.ESCANER_FRONTAL' | translate }}
+        </div>
+        <div class="boton">
+          <input id="frontal1" title="" type="file" accept="image/*" (click)="resetFile('frontal1')"
+            (change)="getFiles($event,2)">
+          <img src="../../assets/imgs/registro/scan.png" width="80" height="80" />
+        </div>
+      </div>
+      <div class="escaneo" *ngIf="paso==2 && tipoDoc=='dni'">
+        <div class="info">
+          <strong>2.&nbsp;</strong> {{ 'HUESPED.ESCANER_TRASERO' | translate }}
+        </div>
+        <div class="boton">
+          <input id="trasero1" title="" type="file" accept="image/*" (click)="resetFile('trasero1')"
+            (change)="getFiles($event,1)">
+          <img src="../../assets/imgs/registro/scan.png" width="80" height="80" />
+        </div>
+      </div>
+      <div class="escaneo" *ngIf="paso==1 && tipoDoc=='pasaporte'">
+        <div class="info">
+          {{ 'HUESPED.ESCANER_PASAPORTE' | translate }}
+        </div>
+        <div class="boton">
+          <input id="pasaporte1" title="" type="file" accept="image/*" (click)="resetFile('pasaporte1')"
+            (change)="getFiles($event,3)">
+          <img src="../../assets/imgs/registro/scan.png" width="80" height="80" />
+        </div>
+      </div>
+
+      <!-- CONFIRMACIÓN PASO 3 -->
+      <div class="confirmacion" *ngIf="paso==3">
+        <div class="texto_confirmacion">
+          {{ 'HUESPED.CONFIRMACION_IMAGENES' | translate }}
+        </div>
+        <div class="boton_confirmacion">
+          <span class="btn_conf" (click)="confirmaImagenes()">{{ 'HUESPED.CONTINUAR' | translate }}</span>
+        </div>
+      </div>
+
+      <!-- PASO 4, FORMULARIO COMPLETO (FIRMA, EMAIL, CONDICIONES) -->
+      <div class="completo" [hidden]="paso!=4">
+        <div class="firma">
+          <div class="texto_firma">
+            <div>
+              {{ 'HUESPED.FIRMA' | translate }}
+            </div>
+            <div class="reset_firma">
+              <button (click)="clearPad()">{{ 'FASTCHECKIN.ERASE_SIGNATURE' | translate }}
+              </button>
+            </div>
+          </div>
+          <div class="panel_firma">
+            <signature-pad #sigpad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
+              (onEndEvent)="drawComplete()">
+            </signature-pad>
+          </div>
+        </div>
+        <div class="email">
+          <div class="texto_email">
+            <label for="email">{{ 'HUESPED.EMAIL' | translate }}</label>
+          </div>
+          <div class="input_email">
+            <input type="text" id="email" [(ngModel)]="this.email">
+          </div>
+        </div>
+        <div class="condiciones">
+          <div class="condicion">
+            <label class="container_box">{{ 'HUESPED.PRIVACIDAD' | translate }}
+              <input type="checkbox" [(ngModel)]="policysecurity">
+              <span class="checkmark"></span>
+            </label>
+            <div class="enlace" (click)="view_policysecurity()">
+              &nbsp;({{ 'HUESPED.VER' | translate }})
+            </div>
+          </div>
+          <div class="condicion" *ngIf="condiciones_hotel">
+            <label class="container_box">{{ 'HUESPED.CONDICIONES' | translate }}
+              <input type="checkbox" [(ngModel)]="conditions">
+              <span class="checkmark"></span>
+            </label>
+            <div class="enlace" (click)="vew_conditions()">
+              &nbsp;({{ 'HUESPED.VER' | translate }})
+            </div>
+          </div>
+        </div>
+
+        <!-- REGISTRO DEL HUÉSPED -->
+        <div class="registrar">
+          <button (click)="saveProfile()">{{ 'HUESPED.ACTUALIZAR_DATOS' | translate }}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 5, FINALIZACIÓN DEL REGISTRO -->
+    <div class="fin_titulo" *ngIf="paso == 5">
+      {{ 'HUESPED.ENHORABUENA' | translate }}
+    </div>
+    <div class="fin_texto" *ngIf="paso == 5">
+      {{ 'HUESPED.EXITO_ACTUALIZAR_DATOS' | translate }}
+    </div>
+    <div class="fin_botones" *ngIf="paso == 5">
+      <div class="fin_boton" (click)="close()">
+        {{ 'HUESPED.FINALIZAR' | translate }}
+      </div>
+    </div>
+    <!-- FIN PASO 5 -->
+
+    <!-- PASO 0 (Especial, para formulario manual de fastcheckin) -->
+    <ion-content *ngIf="paso == 0">
+      <div class="form_manual">
+        <!-- <div class="explicacion">
+          <p *ngIf="!fastcheckinSuccess">{{ 'HUESPED.REGISTRO_MANUAL.UPS' | translate }}</p>
+          <p *ngIf="!fastcheckinSuccess">{{ 'HUESPED.REGISTRO_MANUAL.EXPLICACION' | translate }}</p>
+          <p *ngIf="fastcheckinSuccess">{{ 'HUESPED.REGISTRO_MANUAL.EXPLICACIONSUCCESS' | translate }}</p>
+        </div>-->
+        <div class="item typeOfDocument">
+          <label for="typeOfDocument"><span>{{ 'HUESPED.REGISTRO_MANUAL.TIPO_DOCUMENTO' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.tipoDocumento=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <select id="typeOfDocument" [(ngModel)]="user.guest.fastcheckin.typeOfDocument"
+            (ngModelChange)="cambiarTipoDocumento($event)">
+            <option *ngFor="let option of tiposDocumentos.opciones; let i = index" [ngValue]="option.id"
+              [selected]="option.id==fastcheckin.typeOfDocument">
+              {{option.name}} </option>
+          </select>
+        </div>
+        <div class="item identifier" *ngIf="user.guest.fastcheckin.typeOfDocument=='D'">
+          <label for="identifier"><span>{{ 'HUESPED.REGISTRO_MANUAL.NUM_IDENTIFICACION' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.numIdentificacion=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="identifier" type="text"
+            class="{{erroresRegistroManual.numIdentificacion || fastcheckin.dni.identifier=='' ? 'error' : ''}}"
+            [(ngModel)]="fastcheckin.dni.identifier"
+            (ngModelChange)="modificaCampoRegistroManual('numIdentificacion')" />
+        </div>
+        <div class="item identifier" *ngIf="user.guest.fastcheckin.typeOfDocument=='P'">
+          <label for="identifier"><span>{{ 'HUESPED.REGISTRO_MANUAL.NUM_IDENTIFICACION' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.numIdentificacion=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="identifier" type="text"
+            class="{{erroresRegistroManual.numIdentificacion || fastcheckin.passport.identifier=='' ? 'error' : ''}}"
+            [(ngModel)]="fastcheckin.passport.identifier"
+            (ngModelChange)="modificaCampoRegistroManual('numIdentificacion')" />
+        </div>
+        <div class="item date_exp">
+          <label for="date_exp"><span>{{ 'HUESPED.REGISTRO_MANUAL.EXPEDICION' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.fechaExpedicion=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="date_exp" type="date"
+            class="{{erroresRegistroManual.fechaExpedicion || fastcheckin.date_exp == '' ? 'error' : ''}}"
+            [(ngModel)]="fastcheckin.date_exp" (ngModelChange)="modificaCampoRegistroManual('fechaExpedicion')" />
+        </div>
+        <div class="item name">
+          <label for="name"><span>{{ 'HUESPED.REGISTRO_MANUAL.NOMBRE' | translate }}</span> <span class="label_error"
+              *ngIf="erroresRegistroManual.nombre=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="name" type="text" class="{{erroresRegistroManual.nombre || fastcheckin.name=='' ? 'error' : ''}}"
+            [(ngModel)]="fastcheckin.name" (ngModelChange)="modificaCampoRegistroManual('nombre')" />
+        </div>
+        <div class="item surnameOne">
+          <label for="surnameOne"><span>{{ 'HUESPED.REGISTRO_MANUAL.APELLIDO_1' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.apellido1=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="surnameOne"
+            class="{{erroresRegistroManual.apellido1 || fastcheckin.surnameOne=='' ? 'error' : ''}}" type="text"
+            [(ngModel)]="fastcheckin.surnameOne" (ngModelChange)="modificaCampoRegistroManual('apellido1')" />
+        </div>
+        <!-- EL SEGUNDO APELLIDO SE PONDRÁ COMO OPCIONAL -->
+        <div class="item surnameTwo">
+          <label for="surnameTwo"><span>{{ 'HUESPED.REGISTRO_MANUAL.APELLIDO_2' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.apellido2=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="surnameTwo" class="{{erroresRegistroManual.apellido2 ? 'error' : ''}}" type="text"
+            [(ngModel)]="fastcheckin.surnameTwo" (ngModelChange)="modificaCampoRegistroManual('apellido2')" />
+        </div>
+
+        <div class="item birthday">
+          <label for="birthday"><span>{{ 'HUESPED.REGISTRO_MANUAL.NACIMIENTO' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.fechaNacimiento=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="birthday" type="date"
+            class="{{erroresRegistroManual.fechaNacimiento || fastcheckin.birthday=='' ? 'error' : ''}}"
+            [(ngModel)]="fastcheckin.birthday" (ngModelChange)="modificaCampoRegistroManual('fechaNacimiento')" />
+        </div>
+        <div class="item sex">
+
+          <label for="sex"><span>{{ 'HUESPED.REGISTRO_MANUAL.SEXO' | translate }}</span> <span class="label_error"
+              *ngIf="erroresRegistroManual.sexo=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <select id="sex" [(ngModel)]="fastcheckin.sex" (ngModelChange)="cambiarSexo($event)">
+            <option *ngFor="let option of tiposSexo.opciones" [ngValue]="option.id">
+              {{option.name}} </option>
+          </select>
+
+        </div>
+        <div class="item nationality">
+          <label for="nationality"><span>{{ 'HUESPED.REGISTRO_MANUAL.NACIONALIDAD' | translate }}</span> <span
+              class="label_error"
+              *ngIf="erroresRegistroManual.nacionalidad=='obligatorio'">{{ 'HUESPED.REGISTRO_MANUAL.OBLIGATORIO' | translate }}</span></label>
+          <input id="nationality" type="text"
+            class="{{erroresRegistroManual.nacionalidad || fastcheckin.nationality=='' ? 'error' : ''}}"
+            [(ngModel)]="fastcheckin.nationality" (ngModelChange)="modificaCampoRegistroManual('nacionalidad')" />
+        </div>
+        <div class="item province">
+          <label for="province"><span>{{ 'HUESPED.REGISTRO_MANUAL.PROVINCIA' | translate }}</span></label>
+          <input id="province" type="text" [(ngModel)]="fastcheckin.province" />
+        </div>
+        <div class="boton_continuar">
+          <button class="{{erroresRegistroManual.tieneErrores ? 'boton_error' : ''}}"
+            (click)="guardarDatosManuales()">{{ 'HUESPED.REGISTRO_MANUAL.CONTINUAR' | translate }}</button>
+        </div>
+      </div>
+    </ion-content>
+    <!-- FIN PASO 0 -->
+
+    <!-- PROGRESO -->
+    <div class="progreso" *ngIf="paso!=11">
+      <span [ngStyle]="{width: progreso}"></span>
+    </div>
+  </div>
+
+</div>

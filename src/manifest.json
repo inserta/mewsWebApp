@@ -1,0 +1,32 @@
+{
+  "prefer_related_applications": false,
+  "name": "Becheckin",
+  "short_name": "Becheckin",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [{
+    "src": "assets/imgs/logo128.png",
+    "type": "image/png",
+    "sizes": "128x128"
+  }, {
+    "src": "assets/imgs/logo152.png",
+    "type": "image/png",
+    "sizes": "152x152"
+  }, {
+    "src": "assets/imgs/logo144.png",
+    "type": "image/png",
+    "sizes": "144x144"
+  }, {
+    "src": "assets/imgs/logo192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+   {
+    "src": "assets/imgs/logo512.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }],
+  "background_color": "#4e8ef7",
+  "theme_color": "#4e8ef7"
+}

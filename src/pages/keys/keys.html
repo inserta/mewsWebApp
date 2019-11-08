@@ -1,0 +1,97 @@
+<ion-header (onLoadProfile)="loadProfile($event)">
+  <ion-grid class="box">
+
+    <ion-row>
+        <ion-col col-5><b>{{'KEYS.TITLE' | translate}}</b></ion-col>
+        <ion-col col-1></ion-col>
+        <ion-col class="boxwhite" col-5>
+        </ion-col>
+    </ion-row>
+
+  </ion-grid>
+	<ion-navbar hideBackButton>
+		<ion-buttons start>
+			<button margin-left ion-button clear icon-only class="mibutton2">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+		<!--<ion-title class="new-padding-title">{{'KEYS.TITLE' | translate}}</ion-title>
+-->
+    <ion-buttons end>
+			<button ion-button margin-right (click)="showSearchBar()" *ngIf="showSearchIcon">
+				<ion-icon name="search"></ion-icon>
+			</button>
+			<button ion-button margin-right icon-only (click)="loadProfile()">
+				<ion-icon name="refresh"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+
+	<div *ngIf="showSearch">
+		<ion-searchbar (ionInput)="searchKeys()" [(ngModel)]="searchKeyInput" placeholder="{{ 'KEYS.FIND' | translate }}"></ion-searchbar>
+	</div>
+ <!--
+	<div text-center class="alert" *ngIf="!bluetoothOn">
+		<ion-icon class="icon-default-button" name="icon-inn-bluetooth"></ion-icon>
+		<span class="small">{{ 'KEYS.BLUETOOTH_OFF' | translate }}</span>
+		<button ion-button class="button-alert" *ngIf="androidPlatform" (click)="activateBluetooth()">{{ 'GENERAL.ACTIVATE' |
+			translate }}</button>
+	</div>
+
+	<div text-center class="alert" *ngIf="!wifiOn">
+		<ion-icon class="icon-default-button" name="icon-inn-internet"></ion-icon>
+		<span class="small">{{ 'KEYS.WIFI_OFF' | translate }}</span>
+		<button ion-button class="button-alert" (click)="goToSettings()">{{ 'GENERAL.SETTINGS' | translate }}</button>
+	</div>
+-->
+</ion-header>
+
+<ion-content padding id="keys-content">
+	<ng-container *ngIf="user || keys">
+		<ng-container *ngFor="let key of keys">
+			<div *ngIf="key.room">
+				<be-key [name]="key.room.mainDevice.nameDevice" [codeOne]="key.room.mainDevice.codeOne" [codeTwo]="key.room.mainDevice.codeTwo"
+         [room]="key.room.name" [start]="key.start" [finish]=" key.finish" [image]="key.client.image ? key.client.image.source : ''"
+				 [backgroundColor]=" key.client.color ? key.client.color : '#E5E5E5'" [hasLight]="key.room.beluxs.length > 0" [nslide]="nslide"
+				 [user]="user" [nameBelux]="key.room.beluxs[0] ? key.room.beluxs[0].nameDevice : ''" [codeOneBelux]="key.room.beluxs[0] ? key.room.beluxs[0].codeOne : ''"
+				 [codeTwoBelux]="key.room.beluxs[0] ? key.room.beluxs[0].codeTwo : ''" [keyRoomId]="key.id" [keyclient]="key.client.id"></be-key>
+			</div>
+		</ng-container>
+	</ng-container>
+</ion-content>
+<ion-footer>
+  <hr style="color: blue">
+  <ion-grid>
+  <ion-row>
+    <ion-col col-3>
+      <button ion-button class="mbutton1" (click)="goFast()"  full  *ngIf="this.service.actualHotel.hasFast == 1">
+        <ion-icon class="icon-large-size" padding name="apps"></ion-icon>
+      </button>
+      <button ion-button class="mbutton1off" full  *ngIf="this.service.actualHotel.hasFast == 0">
+        <ion-icon class="icon-large-size" padding name="apps"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-3>
+      <button ion-button class="mbutton1" (click)="goPago()" full *ngIf="this.service.actualHotel.hasPay == 1">
+        <ion-icon class="icon-large-size" padding name="card"></ion-icon>
+      </button>
+      <button ion-button class="mbutton1off" full *ngIf="this.service.actualHotel.hasPay == 0">
+         <ion-icon class="icon-large-size" padding name="card"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-3>
+      <button ion-button class="mbutton1" (click)="goMap()" full  *ngIf="this.service.actualHotel.hasMap == 1">
+         <ion-icon class="icon-large-size" padding name="navigate"></ion-icon>
+      </button>
+      <button ion-button class="mbutton1off" full *ngIf="this.service.actualHotel.hasMap == 0">
+         <ion-icon class="icon-large-size" padding name="navigate"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-3>
+      <button ion-button class="mbutton1" (click)="goClose()" full>
+        <ion-icon class="icon-large-size" padding name="exit"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-footer>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-grid class="box">
+
+    <ion-row>
+        <ion-col col-5><b>Hotel {{ hotel.name }}</b></ion-col>
+        <ion-col col-2></ion-col>
+        <ion-col class="boxwhite" col-4></ion-col>
+    </ion-row>
+
+  </ion-grid>
+	<ion-navbar>
+		<button ion-button icon-only class="mbutton1"(click)="goInit()">
+			<ion-icon name="home"></ion-icon>
+		</button>
+		<!--<ion-title class="new-padding-title">Hotel {{ hotel.name }}</ion-title>
+		    <ion-buttons end>
+			<button ion-button margin-right icon-only (click)="openHelp()">
+				<ion-icon name="help"></ion-icon>
+			</button>
+		</ion-buttons>-->
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div padding >
+    <!--<img src="{{ hotel.img }}">
+    <div class="overlay"></div>
+    <div class="hotel_title">{{ hotel.name }}
+  <p> {{  'MAP.TEXT' | translate }}</p></div>-->
+    <p style="text-align: center">MAPEA</p>
+  	<button ion-button full icon-start class="no-border button-shadow big-radius" (click)="goToMap(hotel.id, hotel.name)">{{ 'MAP.NEXT' | translate }}</button>
+    <p style="text-align: center"> {{ 'MAP.TEXTOMAPEO' | translate }} </p>
+  </div>
+</ion-content>

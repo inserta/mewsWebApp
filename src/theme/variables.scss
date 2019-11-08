@@ -1,0 +1,120 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #579CD9,
+  secondary:  #EE9C2E,
+  menu-title: #fff,
+  danger:     #CD5252,
+  success:    #8EDC5A,
+  dark:         #000000,
+  bg-color: #FBFBFB,
+  blank: white,
+  default: #A9A9A9,
+  booking: #000066
+);
+
+$primary-text-color: color($colors, default);
+$font-size-base: 1.8rem;
+$font-size-small: 1.2rem;
+$toolbar-background: transparent;
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+$button-ios-height: 2.8em;
+$button-ios-font-size: $font-size-base;
+$button-ios-border-radius: 1.2rem;
+
+$segment-button-ios-border-radius: $button-ios-border-radius;
+$segment-button-ios-font-size: $font-size-base;
+$segment-button-ios-height: $button-ios-height;
+$segment-button-ios-icon-line-height: 4.8rem;
+
+$toolbar-ios-border-color: transparent;
+$toolbar-ios-title-text-color: $primary-text-color;
+$toolbar-ios-title-font-weight: normal;
+$toolbar-ios-button-color: $toolbar-ios-title-text-color;
+
+$list-ios-border-color: color($colors, dark);
+$item-ios-padding-end: 0;
+$label-ios-text-color: $primary-text-color;
+
+$text-input-ios-margin-bottom: 0;
+$text-input-placeholder-color: $primary-text-color;
+
+$select-ios-placeholder-color: $primary-text-color;
+
+$datetime-ios-padding-bottom: 0;
+
+$item-ios-detail-push-color: transparent;
+
+$checkbox-ios-icon-border-color-off: $primary-text-color;
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/ionicons/
+
+@import "ionic.ionicons";
+@import "../assets/icon/style";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

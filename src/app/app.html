@@ -1,0 +1,21 @@
+<ion-menu [content]="content">
+
+    <ion-content class="menu-background">
+      <!--
+        <ion-list no-lines margin *ngIf="currentUser && currentUser.guest.fastcheckin.name">
+            <button class="blank-button" menuClose ion-item *ngFor="let page of pages" (click)="openPage(page.id)">
+                <ion-icon color="blank" margin-right class="icon-default-size" name="{{ page.icon }}"></ion-icon>
+                {{ page.title | translate }}
+            </button>
+        </ion-list>-->
+    </ion-content>
+
+    <ion-footer left padding>
+        <button color="blank" ion-button clear menuClose (click)="closeSessionAlert()">
+            <ion-icon color="blank" margin-right class="icon-default-size" name="icon-inn-logout"></ion-icon>
+            {{ 'MENU.CLOSE_SESSION' | translate }}
+        </button>
+    </ion-footer>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

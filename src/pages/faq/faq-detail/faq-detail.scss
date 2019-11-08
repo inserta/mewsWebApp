@@ -1,0 +1,16 @@
+page-faq-detail {
+    ion-content {
+        background: color($colors, bg-color);
+
+        .faq-detail-content {
+            background: color($colors, blank);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 0 4px 0 rgba(0,0,0,0.5);
+            border-radius: $button-ios-border-radius;
+        }
+    }
+
+    .faq-buttons {
+        padding: 3.2rem;
+    }
+}

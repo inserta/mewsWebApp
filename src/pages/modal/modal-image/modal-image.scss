@@ -1,0 +1,74 @@
+page-modalqr {
+.close-fake {
+    --background: transparent;
+    ion-icon {
+        font-size: 2rem;
+    }
+    margin-top: 40px;
+}
+ 
+ion-content {
+    --background: rgba(44, 39, 45, 0.84);
+}
+ 
+ion-slides {
+    height: 80%;
+}
+
+.close-window {
+    position: absolute;
+    top: 10px;
+    right: 9px;
+  }
+  
+  .text-introduction {
+    color: white;
+    font-size: 14px;
+    text-align: left  !important;
+    font-family: "fontbecheckin";
+  }
+
+  .close-icon
+  {
+    display:block;
+    box-sizing:border-box;
+    width:30px;
+    height:30px;
+    border-radius:100%;
+    background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    font-size: 20px;
+  }
+
+  .nuevo-item {
+    background-color: rgba(13, 49, 59, 0.8);
+    border-radius:12px;
+    width: 90%;
+    padding-left:5px;
+  }
+
+  .mitem {
+    color:rgb(0,53,128);;
+    font-size: 12px;
+    // background-color: rgba(255,255,255, 0.9)
+    font-family: 'fontbecheckin';
+    white-space: normal !important;
+
+  }
+  .mitem_titulo {
+    color:rgb(0,53,128);
+    font-size: 16px;
+    text-decoration:underline;
+    display: inline-block;
+    white-space: normal !important;
+    // background-color: rgba(255,255,255, 0.9)
+    font-family: 'fontbecheckin';
+    overflow: hidden;
+    width: 95%;
+  }
+
+}

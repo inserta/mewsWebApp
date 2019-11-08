@@ -1,0 +1,14 @@
+<div id="signatureContainer" class="signature-container" #signatureContainer>
+  <div class="buttons-container">
+    <button ion-button class="button-signature no-border big-radius small" (click)="enable()" *ngIf="!isEnabled">
+      <ion-icon name="create"></ion-icon>
+    </button>
+    <button ion-button class="button-signature no-border big-radius small" (click)="disable()" *ngIf="isEnabled">
+      <ion-icon name="md-checkmark"></ion-icon>
+    </button>
+    <button ion-button class="button-signature no-border big-radius small" (click)="clear()">
+      <ion-icon name="md-close"></ion-icon>
+    </button>
+  </div>
+  <signature-pad [options]="options" (onEndEvent)="drawComplete()"></signature-pad>
+</div>

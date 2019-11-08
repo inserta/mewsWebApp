@@ -1,0 +1,7 @@
+{
+  "name": "becheckin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

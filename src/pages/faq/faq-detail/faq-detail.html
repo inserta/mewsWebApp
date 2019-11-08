@@ -1,0 +1,17 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons start>
+			<button ion-button margin-left clear icon-only (click)="dismiss()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title>{{ 'FAQS.TITLE' | translate }}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding no-lines text-center no-bounce>
+	<div class="faq-detail-content label-text-color" margin padding>
+		<strong margin-bottom>{{ faq.question | translate }}</strong>
+		<span [innerHtml]="faq.answer | translate"></span>
+	</div>
+</ion-content>

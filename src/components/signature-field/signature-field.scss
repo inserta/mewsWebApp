@@ -1,0 +1,18 @@
+signature-field {
+    .signature-container {
+        background: #ebf4ff;
+        //border: 2px solid;
+        border-radius: 1.2rem;
+        border-color: color($colors, primary);
+        margin-top: 10px;
+    }
+
+    .buttons-container {
+        position: absolute;
+    }
+
+    .button-signature {
+        width: 2.8em;
+        margin: 0;
+    }
+}

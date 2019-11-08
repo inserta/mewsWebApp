@@ -1,0 +1,145 @@
+<div class="colors" [ngClass]="{'isDark': isDark, 'isLight': !isDark}" [ngStyle]="{'background-color' : backgroundColor}">
+
+  <div class="brand-logo" padding-left padding-top>
+		<ion-icon class="icon-large-size" name="icon-inn-garage" *ngIf="!image"></ion-icon>
+		<img class="image-log" src="{{image}}" *ngIf="image">
+  </div>
+  <br>
+	<div class="room-name" padding-left>
+		<span class="room-name-title"><strong>{{ room }}</strong>{{ start | date: 'd MMM y' }} / {{ finish | date: 'd MMM y' }}</span>
+		<span class="room-name-title"><strong>{{ 'FASTCHECKIN.RESERVE' | translate }} : {{ code }}</strong></span>
+  </div>
+
+
+  <ion-slides (ionSlideDrag)="slideStarts($event)" (ionSlideNextEnd)="abrirPuerta()">
+
+		<ion-slide>
+      <div class="brand-logo" padding-right padding-top>
+          <ion-icon class="icon-large-size p10" padding name="apps-outline" (click)="irServicios()"></ion-icon>
+      </div>
+
+      <div class="text-slide">
+				<span class="text-slide-arrows" padding>
+					<ion-icon name="ios-arrow-back" class="animated animated-1"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-2"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-3"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-4"></ion-icon>
+        </span>
+      </div>
+
+      <div class="text-slide2">
+				<span class="text-slide-arrows" padding>
+					<ion-icon name="ios-arrow-back" class="animated animated-1"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-2"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-3"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-4"></ion-icon>
+        </span>
+      </div>
+      <div class="text-slide3">
+				<span class="text-slide-arrows" padding>
+					<ion-icon name="ios-arrow-back" class="animated animated-1"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-2"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-3"></ion-icon>
+					<ion-icon name="ios-arrow-back" class="animated animated-4"></ion-icon>
+        </span>
+      </div>
+
+      <div class="textoslide">
+        SLIDE TO OPEN
+      </div>
+
+		</ion-slide>
+
+		<ion-slide>
+        <div class="brand-logo" padding-right padding-top>
+            <ion-icon class="icon-large-size p11" padding name="arrow-dropleft" (click)="irTravel()"></ion-icon>
+            <ion-icon class="icon-large-size p10" padding name="apps-outline" (click)="irServicios()"></ion-icon>
+        </div>
+        <div class="pb1">
+            <ion-icon class="icon-large-size b1" name="bulb" (click)="turnBelux(1)"></ion-icon>
+        </div>
+        <div class="pb2">
+            <ion-icon class="icon-large-size b1" name="bulb-outline" (click)="turnBelux(0)"></ion-icon>
+        </div>
+
+
+		</ion-slide>
+    <ion-slide>
+
+      <div class="text-servicio">
+        <div class="brand-logo" padding-right padding-top>
+          <ion-icon class="icon-large-size p1" padding name="arrow-dropleft" (click)="irTravel()"></ion-icon>
+          <ion-icon class="icon-large-size p2" padding name="card" *ngIf="this.serviceAPI.actualHotel.hasPay == '1'" (click)="openQr()"></ion-icon>
+          <ion-icon class="icon-large-size p2" padding name="lock" *ngIf="this.serviceAPI.actualHotel.hasPay == '0'"></ion-icon>
+          <ion-icon class="icon-large-size p3" padding name="navigate" (click)="openMaps()" *ngIf="this.serviceAPI.actualHotel.hasMap == '1'"></ion-icon>
+          <ion-icon class="icon-large-size p3" padding name="lock" *ngIf="this.serviceAPI.actualHotel.hasMap == '0'"></ion-icon>
+          <ion-icon class="icon-large-size p4" padding name="contacts" (click)="openUser()"  *ngIf="this.serviceAPI.actualHotel.hasFast == '1'"></ion-icon>
+          <ion-icon class="icon-large-size p4" padding name="lock" *ngIf="this.serviceAPI.actualHotel.hasFast == '0'"></ion-icon>
+        </div>
+        <div class="brand-logo" padding-left padding-top>
+          <ion-icon class="icon-large-size p5" padding name="bicycle"></ion-icon>
+          <ion-icon class="icon-large-size p6" padding name="plane"></ion-icon>
+          <ion-icon class="icon-large-size p7" padding name="logo-whatsapp" (click)="openWhatsapp()"></ion-icon>
+          <ion-icon class="icon-large-size p8" padding name="wifi" (click)="opendatosWifi()" ></ion-icon>
+        </div>
+        </div>
+
+
+    </ion-slide>
+
+		<ion-slide>
+			<div class="text-error">
+				<div class="brand-logo" padding-left padding-top>
+					<ion-icon class="icon-large-size" name="icon-inn-garage" *ngIf="!image"></ion-icon>
+					<img class="image-logo" src="{{image}}" *ngIf="image">
+				</div>
+
+				<div class="room-name-smaller" padding-left>
+					{{ 'KEYS.ROOM' | translate }} {{ room }}
+				</div>
+        <div class="room-name-smaller2" padding-left>
+          <ng-container *ngIf="(tooEarly)">{{ 'KEYS.TEXT_OLD' | translate }}
+  					<span>{{start | date: 'd MMM y' }}</span>
+  				</ng-container>
+  				<ng-container *ngIf="(tooLate)">{{ 'KEYS.TEXT_OLD_VALID' | translate }}
+  					<span>{{finish | date: 'd MMM y' }}</span>
+  				</ng-container>
+				</div>
+
+
+				<div class="text-slide text-slide-error">
+					<span class="text-slide-text">
+						{{ 'KEYS.NO_OPENING_DOOR' | translate }}
+					</span>
+					<span class="text-slide-arrows" padding>
+						<ion-icon name="ios-arrow-forward" class="animated animated-second animated-1"></ion-icon>
+						<ion-icon name="ios-arrow-forward" class="animated animated-second animated-2"></ion-icon>
+						<ion-icon name="ios-arrow-forward" class="animated animated-second animated-3"></ion-icon>
+						<ion-icon name="ios-arrow-forward" class="animated animated-second animated-4"></ion-icon>
+					</span>
+				</div>
+			</div>
+      <div class="text-old">
+				<ng-container *ngIf="(tooEarly)">{{ 'KEYS.TEXT_OLD' | translate }}
+					<span>{{start | date: 'd MMM y' }}</span>
+				</ng-container>
+				<ng-container *ngIf="(tooLate)">{{ 'KEYS.TEXT_OLD_VALID' | translate }}
+					<span>{{finish | date: 'd MMM y' }}</span>
+				</ng-container>
+
+			</div>
+		</ion-slide>
+    <!--
+		<ion-slide>
+			<div class="text-old">
+				<ng-container *ngIf="(tooEarly)">{{ 'KEYS.TEXT_OLD' | translate }}
+					<span>{{start | date: 'd MMM y' }}</span>
+				</ng-container>
+				<ng-container *ngIf="(tooLate)">{{ 'KEYS.TEXT_OLD_VALID' | translate }}
+					<span>{{finish | date: 'd MMM y' }}</span>
+				</ng-container>
+
+			</div>
+		</ion-slide>-->
+  </ion-slides>
+</div>

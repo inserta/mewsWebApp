@@ -1,0 +1,14 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'POLICY.DATA_ACCESS' | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p style="text-align: center">{{ message }}</p>
+  <button ion-button margin-top full icon-start class="no-border button-shadow big-radius" (click)="acceptRequest()">{{'GENERAL.OK' | translate}}</button>
+  <button ion-button margin-top full icon-start class="no-border button-shadow big-radius" (click)="declineRequest()">{{'GENERAL.CANCEL' | translate}}</button>
+</ion-content>
