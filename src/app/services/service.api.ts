@@ -30,9 +30,9 @@ export class ServiceAPI extends AbstractService {
 
 	databooking: any;
 
-	// apiUrl = "https://booking.becheckin.com/";
+	apiUrl = "https://booking.becheckin.com/";
 
-	apiUrl = "http://192.168.99.100:15000/";
+	// apiUrl = "http://192.168.99.100:15000/";
 
 	constructor(
 		private _http: Http,
