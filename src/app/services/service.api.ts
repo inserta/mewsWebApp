@@ -30,8 +30,9 @@ export class ServiceAPI extends AbstractService {
 
 	databooking: any;
 
-	apiUrl = "https://booking.becheckin.com/";
-	// apiUrl = "http://localhost:8080/";
+	// apiUrl = "https://booking.becheckin.com/";
+
+	apiUrl = "http://192.168.99.100:15000/";
 
 	constructor(
 		private _http: Http,
@@ -269,13 +270,27 @@ export class ServiceAPI extends AbstractService {
 			.catch((response: any) => {
 				return Promise.reject(response);
 			});
-	}
+	}   
 
 	booking(reserva): Promise<any> {
 		let body = {
 			reserva: reserva
 		}
-		return this.makePost(this.apiUrl + "getAllHotels", body)
+		return this.makePost(this.apiUrl + "get_mews_code", body)
+			.then((response: any) => {
+				return Promise.resolve(response);
+			})
+			.catch((response: any) => {
+				return Promise.reject(response);
+			});
+	}
+
+	inyectar(reserva, fast): Promise<any> {
+		let body = {
+			reserva: reserva,
+			fast: fast 
+		}
+		return this.makePost(this.apiUrl + "set_mews_fast", body)
 			.then((response: any) => {
 				return Promise.resolve(response);
 			})

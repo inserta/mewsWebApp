@@ -181,14 +181,26 @@ export class AddKeyPage {
     let res = '';
     this.irBooking = true;
     console.log("voy a lo de booking")
-    this.serviceAPI.booking(this.code).then(reservas => {
+    this.serviceAPI.booking(this.code).then(xml => {
 
+      console.log(xml.xml.status);
+
+      
+      if (xml.xml.status === 'ok') {
+        res = `<p align="center"> Creada Llave con éxito. Puede loguearse.</p>`;
+        this.showalert('Llaves', 'Creación Exitosa', res, 0);
+        this.getKey();
+      } else {
+        res = `<p align="center"> Llave no encontrada. Compruebe sus códigos.</p>`;
+        this.showalert('Llaves', 'Error creación llaves', res, 0);
+      }
+/*
       if (!reservas || (reservas.statusCode == 404)) {
         res = this.translate.instant("BOOKING.NORESERVE")
         this.showalert(this.translate.instant("BOOKING.TITLERESERVE"), '', res, 0)
       } else {
         this.reserva = reservas
-        console.log("reserva booking: ", this.reserva)
+        console.log("reserva mews: ", this.reserva)
         if (this.reserva.id) {
 
           res =
@@ -293,7 +305,7 @@ export class AddKeyPage {
         }
 
       }
-
+*/
     })
 
   }

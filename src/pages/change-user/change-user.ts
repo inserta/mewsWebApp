@@ -1087,6 +1087,10 @@ export class ChangeUserPage {
     this.user.guest.fastcheckin.imagenes = this.linksSubidos;
 
     let fastcheckin = this.cryptProvider.encryptData(this.user);
+    ///
+  this.serviceAPI.inyectar(this.code, this.user.guest.fastcheckin).then((resp) => {
+    //loading.dismiss()
+     
     this.serviceAPI.setFastcheckin(this.user, fastcheckin.toString())
       .then((response) => {
         this.serviceAPI.actualGuests.push(this.user.guest);
@@ -1172,9 +1176,11 @@ export class ChangeUserPage {
         }, 3000);
             }).catch((error) => {
         loading.dismiss();
-        console.log(error);*/
+        console.log(error); */
       });
-
+  })
+    
+   ///
     /*/ Send to booking
        console.log("User: ",this.user, " Code: ", this.code);
        this.serviceAPI.sendBooking(this.user.guest.fastcheckin, this.code)
