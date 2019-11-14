@@ -253,7 +253,7 @@
             "TIPO_DOCUMENTO": "Type de document",
             "OBLIGATORIO": "Champs requis",
             "NUM_IDENTIFICACION": "Identification number",
-            "EXPEDICION": "Numéro d'identification",
+            "EXPEDICION": "Date d'Emission",
             "NOMBRE": "Prénom",
             "APELLIDOS": "Noms de famille",
             "APELLIDO_1": "Nom de famille",
@@ -273,6 +273,10 @@
             "PREGUNTA": "Que veux tu faire?",
             "CHECKIN": "Effectuer check in",
             "LLAVES": "Clés"
+        },
+        "EMAIL_ERROR": {
+          "NO_EMAIL": "Email est requis",
+          "EMAIL_REPETIDO": "Vous avez déjà enregistré cet email auparavant dans votre réservation. S'il vous plaît écrivez un autre."
         }
     }
 }

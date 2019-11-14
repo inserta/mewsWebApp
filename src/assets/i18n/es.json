@@ -139,6 +139,10 @@
           "PREGUNTA": "¿Qué desea hacer?",
           "CHECKIN": "Realizar check in",
           "LLAVES": "Llaves"
+      },
+      "EMAIL_ERROR": {
+        "NO_EMAIL": "El email es obligatorio",
+        "EMAIL_REPETIDO": "Ya ha registrado este email previamente en su reserva. Por favor, escriba uno distinto."
       }
     },
     "CODE_AUTH": {

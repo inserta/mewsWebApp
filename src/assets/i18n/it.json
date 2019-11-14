@@ -253,7 +253,7 @@
           "TIPO_DOCUMENTO": "Tipo di documento",
           "OBLIGATORIO": "Campo obbligatorio",
           "NUM_IDENTIFICACION": "Numero identificativo",
-          "EXPEDICION": "Data di spedizione",
+          "EXPEDICION": "Data di emissione",
           "NOMBRE": "Nome",
           "APELLIDOS": "Cognomi",
           "APELLIDO_1": "Primo cognome",
@@ -273,6 +273,10 @@
           "PREGUNTA": "Che cosa vuoi fare?",
           "CHECKIN": "Eseguire check in",
           "LLAVES": "Chiavi"
+      },
+      "EMAIL_ERROR": {
+        "NO_EMAIL": "Email obbligatoria",
+        "EMAIL_REPETIDO": "Hai già registrato questa email in precedenza nella tua prenotazione. Per favore scrivine uno diverso."
       }
     }
 }

@@ -657,8 +657,28 @@ export class ModalEditHuesped {
     this.apiComponents.createLoading().then((loading: Loading) => {
       loading.present();
       if (this.existFastcheckin) {
+
+        if (!this.email) {
+          loading.dismiss();
+          let alert = this.alertCtrl.create({
+            title: 'FASTCHECKIN',
+            subTitle: this.translate.instant("HUESPED.EMAIL_ERROR.NO_EMAIL"),
+            buttons: ['OK']
+          });
+          alert.present();
+
+        } else if (!this.compruebaEmailExistente()) {
+
+          loading.dismiss();
+          let alert = this.alertCtrl.create({
+            title: 'FASTCHECKIN',
+            subTitle: this.translate.instant("HUESPED.EMAIL_ERROR.EMAIL_REPETIDO"),
+            buttons: ['OK']
+          });
+          alert.present();
+
         // No tiene condiciones hotel:
-        if (this.condiciones_hotel.length == 0) {
+        } else if (this.condiciones_hotel.length == 0) {
           if (this.policysecurity) {
             this.savePad();
             this.user.guest.fastcheckin.email = this.email;
@@ -729,6 +749,20 @@ export class ModalEditHuesped {
         alert.present();
       }
     });
+  }
+
+  compruebaEmailExistente() {
+    let res = true;
+    this.user;
+    this.serviceAPI.actualGuests.forEach(huesped => {
+      if(huesped._id != this.user.guest._id && huesped.fastcheckin.email) {
+        if (huesped.fastcheckin.email == this.email) {
+          res = false;
+        }
+      }
+    });
+
+    return res;
   }
 
   private checkKeyPermisions() {
@@ -875,7 +909,7 @@ export class ModalEditHuesped {
           });
         } catch (error) {
           console.log(error);
-          loading.dismiss(); 
+          loading.dismiss();
           //this.showToast("FASTCHECKIN.NO_SCANNER");
           this.errorScan = this.errorScan + 1;
           if (this.errorScan >= 2) {
@@ -952,10 +986,10 @@ export class ModalEditHuesped {
   }
 
   avanzaDNIDelantero(mensaje?, loading?) {
-    if(loading){
+    if (loading) {
       loading.dismiss();
     }
-    if(mensaje){
+    if (mensaje) {
       console.log(mensaje);
     }
     if (this.paso != 3) {
@@ -1148,105 +1182,107 @@ export class ModalEditHuesped {
 
 
     let fastcheckin = this.cryptProvider.encryptData(this.user);
-    this.serviceAPI.setFastcheckin(this.user, fastcheckin.toString())
-      .then((response) => {
 
-        this.service.getHotel(this.user.guest.clientOf).then(hotel => {
-          console.log('hotel my: ', hotel);
-          let isMY = (hotel[0].pms.pms_user === 'MASTERYIELD') ? true : false;
+    this.serviceAPI.inyectar(this.code, this.user.guest.fastcheckin).then((resp) => {
+      this.serviceAPI.setFastcheckin(this.user, fastcheckin.toString())
+        .then((response) => {
 
-          // console.log('user keys: ', this.user.keysRooms[0]);
+          this.service.getHotel(this.user.guest.clientOf).then(hotel => {
+            console.log('hotel my: ', hotel);
+            let isMY = (hotel[0].pms.pms_user === 'MASTERYIELD') ? true : false;
+
+            // console.log('user keys: ', this.user.keysRooms[0]);
 
 
 
 
-          //this.serviceAPI.actualGuests.push(this.user.guest);
-          this.user.guest.fastcheckin = CryptProvider.decryptData(fastcheckin.toString(), this.user.guest._id);
-          console.log('Fast: ', this.user.guest.fastcheckin);
-          var fechaInicio = new Date(this.user.guest.fastcheckin.birthday).getTime();
-          var fechaFin = new Date().getTime();
+            //this.serviceAPI.actualGuests.push(this.user.guest);
+            this.user.guest.fastcheckin = CryptProvider.decryptData(fastcheckin.toString(), this.user.guest._id);
+            console.log('Fast: ', this.user.guest.fastcheckin);
+            var fechaInicio = new Date(this.user.guest.fastcheckin.birthday).getTime();
+            var fechaFin = new Date().getTime();
 
-          var diff = fechaFin - fechaInicio;
+            var diff = fechaFin - fechaInicio;
 
-          var edad = diff / (1000 * 60 * 60 * 24 * 365)
+            var edad = diff / (1000 * 60 * 60 * 24 * 365)
 
-          console.log(diff / (1000 * 60 * 60 * 24 * 365));
-          this.serviceAPI.actualUser.edad = edad
-          this.storageService.setUserData(this.user);
-          this.events.publish('setUser', this.user);
-          this.dataUpdate = true;
+            console.log(diff / (1000 * 60 * 60 * 24 * 365));
+            this.serviceAPI.actualUser.edad = edad
+            this.storageService.setUserData(this.user);
+            this.events.publish('setUser', this.user);
+            this.dataUpdate = true;
 
+            loading.dismiss();
+            this.paso = 5;
+            this.progreso = "100\%";
+            if (isMY) {
+              let url = 'https://masteryield.eu/channel_post.php?apikey=7a3680c5-9eb4-m52f-8775-440e31dbe0f2';
+              let license: String = this.code;
+              license = license.substring(0, 5);
+              url = url + '&license=' + license;
+              url = url + '&json=' + this.code;
+              this.serviceAPI.sendMY(url).then(resp => { console.log('MY: ', resp) })
+            } else {
+              console.log('No es MY');
+            }
+
+          })
+
+          /*
+          
+                  this.serviceAPI.getHotel(this.user.keysRooms[0].client._id).then(hotel => {
+                    console.log('h: ', hotel)
+                    let mail = this.user.keysRooms[0].client.email;
+          
+                    if ((hotel[0].email) && (hotel[0].email != hotel[0].user) && (hotel[0].email != '')) {
+                      mail = mail + ', ' + hotel[0].email;
+                      if (hotel[0].activo == '0')
+                        mail = hotel[0].email;
+                    }
+          
+                 
+          
+          
+                    console.log('email to: ', mail)
+          
+                    let asunto = "Nuevo Fastcheckin";
+                    let mailTo = mail;
+                    let cco = "amalia@becheckin.com";
+                    let nombreHuesped=this.user.keysRooms[0].client.name;
+                    let nombreReserva=this.user.keysRooms[0].downloadCode;
+                    let fechaInicio=this.user.keysRooms[0].start.substring(0, 10);
+                    let fechaFin=this.user.keysRooms[0].finish.substring(0, 10);
+                    let fastcheckin: FastCheckin = this.user.guest.fastcheckin;
+                    let mensaje = "<!doctype html><html><head><title>Becheckin<\/title><style>.cuerpo{margin: 2%;background: #003581;border-radius: 10px;border: 2px solid #444;box-shadow: 0px 0px 10px 4px #888888;color:#E5E5E5;padding: 1%;}.imagen{margin-top: 10px;margin-bottom: 5px;display: flex;justify-content: center;align-items: center;}img{margin: 0 auto; border-radius: 5px;overflow: hidden;}.bienvenida{margin-left: 3%;margin-right: 3%;font-size: 20px;font-weight: bold;}.nombre{color: #f9ffac;}.reserva{font-weight: bold;color: #ecffbf;}.texto{margin-top: 20px;margin-left: 6%;margin-right: 6%;font-size: 18px;}.fecha1{color: #c4ffb5;}.fecha2{color: #ffb5b5;}.info{margin-bottom: 10px;}.fechas{margin-bottom: 10px;}.datos{margin-bottom: 10px;}.dato{font-size: 14px;margin: 5px 2%;}.texto_final{margin-bottom: 30px;font-size: 14px;font-style: italic;}a{color: #feffce;}.pie{text-align: center;font-style: italic;color: #7e7e7e;}<\/style><\/head><body><div class='cuerpo'><div class='imagen'><img src='https:\/\/dashboard.becheckin.com\/imgs\/logo\/inserta.png' width='50' height='50' \/><\/div><div class='bienvenida'>Hola <span class='nombre'>"+(nombreHuesped?nombreHuesped : "")+"<\/span><\/div><div class='texto'><div class='info'>Tu reserva <span class='reserva'>"+(nombreReserva?nombreReserva : "")+"<\/span> tiene un nuevo FastCheckin.<\/div><div class='fechas'>Entrada <span class='fecha1'>"+(fechaInicio?fechaInicio : "")+"<\/span> | Salida <span class='fecha2'>"+(fechaFin?fechaFin : "")+"<\/span><\/div><div class='datos'>Datos huésped:<div class='dato'>Nombre: "+(fastcheckin.name?fastcheckin.name : "")+"<\/div><div class='dato'>Fecha Nacimiento: "+(fastcheckin.birthday?fastcheckin.birthday : "")+"<\/div><div class='dato'>Fecha Expedicion: "+(fastcheckin.date_exp?fastcheckin.date_exp : "")+"<\/div><div class='dato'>Dni: "+(fastcheckin.dni.identifier?fastcheckin.dni.identifier : "")+"<\/div><div class='dato'>Pasaporte: "+(fastcheckin.passport.identifier?fastcheckin.passport.identifier : "")+"<\/div><div class='dato'>Nacionalidad: "+(fastcheckin.nationality?fastcheckin.nationality : "" )+"<\/div><div class='dato'>Sexo: "+(fastcheckin.sex?fastcheckin.sex : "" )+"<\/div><div class='dato'>Email: "+(fastcheckin.email?fastcheckin.email : "" )+"<\/div><\/div><div class='texto_final'>Puedes consultar los datos FastCheckin en tu dashboard: <a href='https:\/\/dashboard.becheckin.com'target='_blank' style='color:#feffce;'>https:\/\/dashboard.becheckin.com <\/a><br \/>Nos tienes siempre a tu disposición en Booking@becheckin.com y en el teléfono +34 627 07 41 73.<\/div><\/div><\/div><\/body><footer><hr \/><div class='pie'>Atentamente, BeCheckin Team.<\/div><\/footer><\/html>";
+                    this.service.sendGenericMail(asunto, mensaje, mailTo, "", cco).then(res => {
+                      console.log(res);
+                      loading.dismiss();
+                      this.checkKeyPermisions();
+                    });
+                    // this.serviceAPI.sendmail(
+                    //   this.user.keysRooms[0].client.name,
+                    //   this.user.keysRooms[0].downloadCode,
+                    //   mail,
+                    //   this.user.keysRooms[0].start.substring(0, 10),
+                    //   this.user.keysRooms[0].finish.substring(0, 10),
+                    //   this.user.guest.fastcheckin
+          
+                    // ).then(resp => {
+                    //   // this.content.scrollToTop();
+                    //   //this.anotherGuest();
+          
+                    // })
+                  })*/
+
+          /*
+          setTimeout(() => {
+              this.dataUpdate = false;
+          }, 3000);
+              }).catch((error) => {
           loading.dismiss();
-          this.paso = 5;
-          this.progreso = "100\%";
-          if (isMY) {
-            let url = 'https://masteryield.eu/channel_post.php?apikey=7a3680c5-9eb4-m52f-8775-440e31dbe0f2';
-            let license: String = this.code;
-            license = license.substring(0, 5);
-            url = url + '&license=' + license;
-            url = url + '&json=' + this.code;
-            this.serviceAPI.sendMY(url).then(resp => { console.log('MY: ', resp) })
-          } else {
-            console.log('No es MY');
-          }
-
-        })
-
-        /*
-        
-                this.serviceAPI.getHotel(this.user.keysRooms[0].client._id).then(hotel => {
-                  console.log('h: ', hotel)
-                  let mail = this.user.keysRooms[0].client.email;
-        
-                  if ((hotel[0].email) && (hotel[0].email != hotel[0].user) && (hotel[0].email != '')) {
-                    mail = mail + ', ' + hotel[0].email;
-                    if (hotel[0].activo == '0')
-                      mail = hotel[0].email;
-                  }
-        
-               
-        
-        
-                  console.log('email to: ', mail)
-        
-                  let asunto = "Nuevo Fastcheckin";
-                  let mailTo = mail;
-                  let cco = "amalia@becheckin.com";
-                  let nombreHuesped=this.user.keysRooms[0].client.name;
-                  let nombreReserva=this.user.keysRooms[0].downloadCode;
-                  let fechaInicio=this.user.keysRooms[0].start.substring(0, 10);
-                  let fechaFin=this.user.keysRooms[0].finish.substring(0, 10);
-                  let fastcheckin: FastCheckin = this.user.guest.fastcheckin;
-                  let mensaje = "<!doctype html><html><head><title>Becheckin<\/title><style>.cuerpo{margin: 2%;background: #003581;border-radius: 10px;border: 2px solid #444;box-shadow: 0px 0px 10px 4px #888888;color:#E5E5E5;padding: 1%;}.imagen{margin-top: 10px;margin-bottom: 5px;display: flex;justify-content: center;align-items: center;}img{margin: 0 auto; border-radius: 5px;overflow: hidden;}.bienvenida{margin-left: 3%;margin-right: 3%;font-size: 20px;font-weight: bold;}.nombre{color: #f9ffac;}.reserva{font-weight: bold;color: #ecffbf;}.texto{margin-top: 20px;margin-left: 6%;margin-right: 6%;font-size: 18px;}.fecha1{color: #c4ffb5;}.fecha2{color: #ffb5b5;}.info{margin-bottom: 10px;}.fechas{margin-bottom: 10px;}.datos{margin-bottom: 10px;}.dato{font-size: 14px;margin: 5px 2%;}.texto_final{margin-bottom: 30px;font-size: 14px;font-style: italic;}a{color: #feffce;}.pie{text-align: center;font-style: italic;color: #7e7e7e;}<\/style><\/head><body><div class='cuerpo'><div class='imagen'><img src='https:\/\/dashboard.becheckin.com\/imgs\/logo\/inserta.png' width='50' height='50' \/><\/div><div class='bienvenida'>Hola <span class='nombre'>"+(nombreHuesped?nombreHuesped : "")+"<\/span><\/div><div class='texto'><div class='info'>Tu reserva <span class='reserva'>"+(nombreReserva?nombreReserva : "")+"<\/span> tiene un nuevo FastCheckin.<\/div><div class='fechas'>Entrada <span class='fecha1'>"+(fechaInicio?fechaInicio : "")+"<\/span> | Salida <span class='fecha2'>"+(fechaFin?fechaFin : "")+"<\/span><\/div><div class='datos'>Datos huésped:<div class='dato'>Nombre: "+(fastcheckin.name?fastcheckin.name : "")+"<\/div><div class='dato'>Fecha Nacimiento: "+(fastcheckin.birthday?fastcheckin.birthday : "")+"<\/div><div class='dato'>Fecha Expedicion: "+(fastcheckin.date_exp?fastcheckin.date_exp : "")+"<\/div><div class='dato'>Dni: "+(fastcheckin.dni.identifier?fastcheckin.dni.identifier : "")+"<\/div><div class='dato'>Pasaporte: "+(fastcheckin.passport.identifier?fastcheckin.passport.identifier : "")+"<\/div><div class='dato'>Nacionalidad: "+(fastcheckin.nationality?fastcheckin.nationality : "" )+"<\/div><div class='dato'>Sexo: "+(fastcheckin.sex?fastcheckin.sex : "" )+"<\/div><div class='dato'>Email: "+(fastcheckin.email?fastcheckin.email : "" )+"<\/div><\/div><div class='texto_final'>Puedes consultar los datos FastCheckin en tu dashboard: <a href='https:\/\/dashboard.becheckin.com'target='_blank' style='color:#feffce;'>https:\/\/dashboard.becheckin.com <\/a><br \/>Nos tienes siempre a tu disposición en Booking@becheckin.com y en el teléfono +34 627 07 41 73.<\/div><\/div><\/div><\/body><footer><hr \/><div class='pie'>Atentamente, BeCheckin Team.<\/div><\/footer><\/html>";
-                  this.service.sendGenericMail(asunto, mensaje, mailTo, "", cco).then(res => {
-                    console.log(res);
-                    loading.dismiss();
-                    this.checkKeyPermisions();
-                  });
-                  // this.serviceAPI.sendmail(
-                  //   this.user.keysRooms[0].client.name,
-                  //   this.user.keysRooms[0].downloadCode,
-                  //   mail,
-                  //   this.user.keysRooms[0].start.substring(0, 10),
-                  //   this.user.keysRooms[0].finish.substring(0, 10),
-                  //   this.user.guest.fastcheckin
-        
-                  // ).then(resp => {
-                  //   // this.content.scrollToTop();
-                  //   //this.anotherGuest();
-        
-                  // })
-                })*/
-
-        /*
-        setTimeout(() => {
-            this.dataUpdate = false;
-        }, 3000);
-            }).catch((error) => {
-        loading.dismiss();
-        console.log(error);*/
-      });
-
+          console.log(error);*/
+        });
+    })
     /*/ Send to booking
        console.log("User: ",this.user, " Code: ", this.code);
        this.serviceAPI.sendBooking(this.user.guest.fastcheckin, this.code)
@@ -1460,7 +1496,7 @@ export class ModalEditHuesped {
     //Subimos la imagen obtenida en la carpeta de errores con el nuevo código generado.
     if (this.tipoDoc == "dni" && texto != 'sin_error') {
       this.globalService.subirArchivo(this.photosNifSubida[0], "huespedes/errores/dni", cadena).then(res => {
-        let asunto = "[TEST] Error al registrarse en webapp con DNI: "+texto;
+        let asunto = "[TEST] Error al registrarse en webapp con DNI: " + texto;
         let mensaje = "<p>Se ha producido un error en el registro de un huésped</p><p>Se puede ver la imagen utilizada a través del siguiente enlace:</p><p>" + res + "</p>";
         let mailTo = "javier@becheckin.com, amalia@becheckin.com";
         //Enviamos informe de error.
@@ -1470,7 +1506,7 @@ export class ModalEditHuesped {
       });
     } else if (texto != 'sin_error') {
       this.globalService.subirArchivo(this.photosPassportSubida[0], "huespedes/errores/passport", cadena).then(res => {
-        let asunto = "[TEST] Error al registrarse en webapp con Pasaporte: "+texto;
+        let asunto = "[TEST] Error al registrarse en webapp con Pasaporte: " + texto;
         let mensaje = "<p>Se ha producido un error en el registro de un huésped</p><p>Se puede ver la imagen utilizada a través del siguiente enlace:</p><p>" + res + "</p>";
         let mailTo = "javier@becheckin.com, amalia@becheckin.com";
         //Enviamos informe de error.

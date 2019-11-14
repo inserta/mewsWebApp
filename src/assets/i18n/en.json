@@ -108,7 +108,7 @@
           "TIPO_DOCUMENTO": "Document type",
           "OBLIGATORIO": "Required field",
           "NUM_IDENTIFICACION": "Identification number",
-          "EXPEDICION": "Expedition date",
+          "EXPEDICION": "Date of issue",
           "NOMBRE": "Name",
           "APELLIDOS": "Surnames",
           "APELLIDO_1": "Last name",
@@ -128,6 +128,10 @@
           "PREGUNTA": "What would you like to do?",
           "CHECKIN": "Online check in",
           "LLAVES": "Keys"
+      },
+      "EMAIL_ERROR": {
+        "NO_EMAIL": "Email is required",
+        "EMAIL_REPETIDO": "You have already registered this email before in your reservation. Please write a different one."
       }
     },
     "PAGO": {
